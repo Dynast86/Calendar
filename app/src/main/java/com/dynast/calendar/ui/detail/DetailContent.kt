@@ -36,7 +36,7 @@ fun DetailContent() {
 }
 
 @Composable
-fun DividerContent() {
+private fun DividerContent() {
     Divider(
         modifier = Modifier.padding(top = 4.dp, bottom = 4.dp),
         startIndent = paddingStart, thickness = Dp.Hairline

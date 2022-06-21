@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ListItem
@@ -16,24 +16,26 @@ import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
-import androidx.compose.runtime.*
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.dynast.calendar.ui.alarm.repeatItems
 import com.dynast.calendar.ui.theme.CalendarTheme
-
-val repeatItems = listOf(
-    "반복 안함", "매일", "매주", "매월", "매년", "맞춤설정..."
-)
 
 @OptIn(ExperimentalMaterialApi::class)
 @Composable
 fun RepeatDialogPopup(
+    defaultValue: Int = 0,
+    onChecked: (Int) -> Unit,
     onDismiss: () -> Unit
 ) {
-    var selected by remember { mutableStateOf(repeatItems[0]) }
+    val selected by remember { mutableStateOf(defaultValue) }
 
     Dialog(
         onDismissRequest = onDismiss,
@@ -46,11 +48,17 @@ fun RepeatDialogPopup(
             color = MaterialTheme.colorScheme.surface,
         ) {
             LazyColumn(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
-                items(repeatItems) { item ->
-                    ListItem(modifier = Modifier.clickable { selected = item }) {
+                itemsIndexed(repeatItems) { index: Int, item: String ->
+                    ListItem(modifier = Modifier.clickable {
+                        onChecked(index)
+                        onDismiss()
+                    }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
-                            Text(text = item, modifier = Modifier.weight(1f))
-                            if (selected == item) {
+                            Text(
+                                text = item, modifier = Modifier.weight(1f),
+                                style = MaterialTheme.typography.bodyMedium
+                            )
+                            if (selected == index) {
                                 Image(imageVector = Icons.Default.Check, contentDescription = "Check")
                             }
                         }
@@ -65,6 +73,8 @@ fun RepeatDialogPopup(
 @Composable
 fun RepeatDialogPopupPreview() {
     CalendarTheme {
-        RepeatDialogPopup { }
+        RepeatDialogPopup(defaultValue = 1, onChecked = {}) {
+
+        }
     }
 }

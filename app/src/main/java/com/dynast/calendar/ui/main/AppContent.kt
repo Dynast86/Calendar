@@ -44,13 +44,9 @@ fun AppContent(
                 verticalArrangement = Arrangement.spacedBy(8.dp)
             ) {
                 if (page == null) {
-                    items(previewState()) { value ->
-                        ViewAgendaCard(data = value)
-                    }
+                    items(previewState()) { value -> ViewAgendaCard(data = value) }
                 } else {
-                    items(items = page) { value ->
-                        ViewAgendaCard(data = value)
-                    }
+                    items(items = page) { value -> ViewAgendaCard(data = value) }
                 }
             }
         }

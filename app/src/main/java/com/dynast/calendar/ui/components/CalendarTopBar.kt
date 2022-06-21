@@ -9,21 +9,17 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 
 @Composable
 fun CalendarTopBar(
-    modifier: Modifier = Modifier,
     title: String,
     onDrawerClick: () -> Unit
 ) {
     SmallTopAppBar(
         title = { Text(text = title) },
         navigationIcon = {
-            IconButton(
-                onClick = onDrawerClick
-            ) {
+            IconButton(onClick = onDrawerClick) {
                 Icon(Icons.Default.Menu, contentDescription = "More")
             }
         },

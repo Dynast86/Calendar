@@ -16,8 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.ui.theme.CalendarTheme
 
+val repeatItems = listOf(
+    "반복 안함", "매일", "매주", "매월", "매년", "맞춤설정..."
+)
+
 @Composable
 fun AlarmRepeatContent(
+    defaultValue: Int = 0,
     onClicked: () -> Unit
 ) {
     Row(
@@ -35,7 +40,7 @@ fun AlarmRepeatContent(
             modifier = Modifier
                 .padding(top = 16.dp, bottom = 16.dp)
                 .weight(1f),
-            text = "반복 안함"
+            text = repeatItems[defaultValue]
         )
     }
 }
