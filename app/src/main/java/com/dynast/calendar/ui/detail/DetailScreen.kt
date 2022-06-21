@@ -34,12 +34,10 @@ fun DetailScreen(
                     IconButton(onClick = { onBackClick("Edit") }) {
                         Icon(imageVector = Icons.Default.Edit, contentDescription = "Edit")
                     }
-                    Box {
-                        IconButton(onClick = { dropdownState = true }) {
-                            Icon(imageVector = Icons.Default.MoreVert, contentDescription = "More")
-                            if (dropdownState) {
-                                DropMenu(expanded = dropdownState, onDismiss = { dropdownState = false })
-                            }
+                    IconButton(onClick = { dropdownState = true }) {
+                        Icon(imageVector = Icons.Default.MoreVert, contentDescription = "More")
+                        if (dropdownState) {
+                            DropMenu(expanded = dropdownState, onDismiss = { dropdownState = false })
                         }
                     }
                 }
