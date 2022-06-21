@@ -7,7 +7,7 @@ import com.dynast.calendar.data.remote.toCard
 import com.dynast.calendar.domain.model.card.AgendaCardData
 
 class CardPagingSource(
-    val cards: List<CardModel>
+    private val cards: List<CardModel>
 ) : PagingSource<Int, AgendaCardData>() {
 
 

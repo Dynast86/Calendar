@@ -28,12 +28,14 @@ import kotlinx.coroutines.launch
 fun MainScreen(
     viewModel: MainViewModel = hiltViewModel()
 ) {
+    val state = viewModel.state.collectAsState().value
+
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val snackBarHostState = remember { SnackbarHostState() }
     var processState by remember { mutableStateOf(false) }
     val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
-    var selected by remember { mutableStateOf(items[0]) }
+    var selected by remember { mutableStateOf(items[state]) }
     val fabExpand = remember { MutableTransitionState(initialState = false) }
     val taskAlt = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
 

@@ -7,6 +7,7 @@ import com.dynast.calendar.domain.model.card.AgendaCardData
 import com.dynast.calendar.domain.useCase.GetCardsFlowUseCase
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -20,6 +21,9 @@ class MainViewModel @Inject constructor(
 
     private var _getPagingData: Flow<PagingData<AgendaCardData>>? = null
     val getPagingData get() = _getPagingData!!
+
+    private var _state = MutableStateFlow(0)
+    val state get() = _state
 
     init {
         viewModelScope.launch {
