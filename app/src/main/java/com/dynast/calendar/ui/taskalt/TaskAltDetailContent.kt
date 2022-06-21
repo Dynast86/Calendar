@@ -13,15 +13,17 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dynast.calendar.R
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
 fun TaskAltDetailContent() {
     var textState by remember { mutableStateOf(TextFieldValue()) }
-    val hint = "세부정보 추가"
+    val hint = stringResource(id = R.string.task_alt_add_data)
 
     Row(
         modifier = Modifier

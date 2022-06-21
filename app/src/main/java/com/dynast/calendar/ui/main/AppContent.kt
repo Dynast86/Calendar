@@ -57,7 +57,7 @@ fun AppContent(
 @Composable
 fun AppContentPreview() {
     AppContent(
-        progressState = true
+        progressState = false
     )
 }
 

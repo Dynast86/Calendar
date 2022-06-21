@@ -73,7 +73,7 @@ fun ViewAgendaCard(
             ) {
                 Column(Modifier.weight(1f)) {
                     Text(
-                        text = data?.title ?: "Title",
+                        text = data?.title ?: stringResource(id = R.string.app_name),
                         overflow = TextOverflow.Ellipsis,
                         maxLines = 1,
                         style = MaterialTheme.typography.bodySmall

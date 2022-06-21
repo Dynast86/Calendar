@@ -12,12 +12,14 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dynast.calendar.extension.objects.AlarmRepeatItems
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 val repeatItems = listOf(
-    "반복 안함", "매일", "매주", "매월", "매년", "맞춤설정..."
+    AlarmRepeatItems.None, AlarmRepeatItems.Day, AlarmRepeatItems.Week, AlarmRepeatItems.Month, AlarmRepeatItems.Year, AlarmRepeatItems.Config
 )
 
 @Composable
@@ -40,7 +42,7 @@ fun AlarmRepeatContent(
             modifier = Modifier
                 .padding(top = 16.dp, bottom = 16.dp)
                 .weight(1f),
-            text = repeatItems[defaultValue]
+            text = stringResource(id = repeatItems[defaultValue].title)
         )
     }
 }

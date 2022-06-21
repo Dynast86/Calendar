@@ -1,4 +1,53 @@
 <resources>
     <string name="app_name">Calendar</string>
     <string name="dummy">Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry\'s standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.</string>
+
+    <string name="blank" />
+    <string name="save">저장</string>
+
+    <!-- Drawer -->
+    <string name="drawer_view_agenda">일정</string>
+    <string name="drawer_calendar_view_day">일</string>
+    <string name="drawer_view_week">3일</string>
+    <string name="drawer_calendar_view_Week">주</string>
+    <string name="drawer_calendar_view_month">월</string>
+    <string name="drawer_refresh">새로고침</string>
+
+    <!-- Event -->
+    <string name="event">일정</string>
+
+    <!-- TaskAlt -->
+    <string name="task_alt">할일</string>
+    <string name="task_alt_add_data">세부정보 추가</string>
+
+    <!-- Alarms -->
+    <string name="alarms">알림</string>
+    <string name="alarm_repeat_none">반복 안함</string>
+    <string name="alarm_repeat_every_day">매일</string>
+    <string name="alarm_repeat_every_week">매주</string>
+    <string name="alarm_repeat_every_month">매월</string>
+    <string name="alarm_repeat_every_year">매년</string>
+    <string name="alarm_repeat_config">맞춤설정…</string>
+
+    <string name="alarms_hint">알림…</string>
+    <string name="alarm_name_confirm">알림 제목을 입력해야 합니다.</string>
+    <string name="alarm_every_day">종일</string>
+
+    <!-- Flags -->
+    <string name="flag">목표</string>
+    <string name="flag_title">목표 선택</string>
+    <string name="flag_content">캘린더에서 적절한 시간에 목표 달성을 위한 세선 일정을 예약합니다.</string>
+
+    <string name="flag_training_title">운동</string>
+    <string name="flag_improvement_title">자기 계발</string>
+    <string name="flag_friend_ship_title">가족과 친구</string>
+    <string name="flag_own_ship_title">나만의 시간</string>
+    <string name="flag_planned_title">계획적인 생활</string>
+
+    <string name="flag_training_content">달리기, 요가, 신체 활동</string>
+    <string name="flag_improvement_content">언어 배우기, 악기 연습하기</string>
+    <string name="flag_friend_ship_content">소중한 사람을 위해 시간내기</string>
+    <string name="flag_own_ship_content">독서, 명상, 나 자산을 돌보기</string>
+    <string name="flag_planned_content">모든일을 완벽하게</string>
+
 </resources>

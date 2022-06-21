@@ -7,9 +7,11 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.dynast.calendar.R
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
@@ -42,6 +44,6 @@ fun HeaderTextField(
 @Composable
 fun HeaderTextFieldPreview() {
     CalendarTheme {
-        HeaderTextField(hint = "알림...")
+        HeaderTextField(hint = stringResource(id = R.string.alarms_hint))
     }
 }

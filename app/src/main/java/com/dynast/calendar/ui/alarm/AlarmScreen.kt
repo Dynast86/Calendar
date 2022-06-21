@@ -11,9 +11,11 @@ import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
+import com.dynast.calendar.R
 import com.dynast.calendar.extension.UiPopup
 import com.dynast.calendar.ui.theme.CalendarTheme
 import kotlinx.coroutines.launch
@@ -41,6 +43,7 @@ fun AlarmScreen(
             onClicked(AlarmEnum.Close)
         }
     }
+    val toastTitle = stringResource(id = R.string.alarm_name_confirm)
 
     BackHandler(enabled = backState) { popupState = true }
 
@@ -64,9 +67,9 @@ fun AlarmScreen(
                         modifier = Modifier.padding(end = 8.dp),
                         onClick = {
                             scope.launch {
-                                Toast.makeText(context, "알림 제목을 입력해야 합니다.", Toast.LENGTH_SHORT).show()
+                                Toast.makeText(context, toastTitle, Toast.LENGTH_SHORT).show()
                             }
-                        }) { Text(text = "저장") }
+                        }) { Text(text = stringResource(id = R.string.save)) }
                 },
                 scrollBehavior = scrollBehavior
             )

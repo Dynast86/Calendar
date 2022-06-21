@@ -22,9 +22,11 @@ import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.dynast.calendar.extension.objects.AlarmRepeatItems
 import com.dynast.calendar.ui.alarm.repeatItems
 import com.dynast.calendar.ui.theme.CalendarTheme
 
@@ -48,14 +50,14 @@ fun RepeatDialogPopup(
             color = MaterialTheme.colorScheme.surface,
         ) {
             LazyColumn(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
-                itemsIndexed(repeatItems) { index: Int, item: String ->
+                itemsIndexed(repeatItems) { index: Int, item: AlarmRepeatItems ->
                     ListItem(modifier = Modifier.clickable {
                         onChecked(index)
                         onDismiss()
                     }) {
                         Row(verticalAlignment = Alignment.CenterVertically) {
                             Text(
-                                text = item, modifier = Modifier.weight(1f),
+                                text = stringResource(id = item.title), modifier = Modifier.weight(1f),
                                 style = MaterialTheme.typography.bodyMedium
                             )
                             if (selected == index) {

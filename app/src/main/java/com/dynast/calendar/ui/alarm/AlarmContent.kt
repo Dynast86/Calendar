@@ -7,9 +7,11 @@ import androidx.compose.material3.Divider
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.dynast.calendar.R
 import com.dynast.calendar.ui.components.HeaderTextField
 import com.dynast.calendar.ui.components.RepeatDialogPopup
 import com.dynast.calendar.ui.theme.CalendarTheme
@@ -28,7 +30,7 @@ fun AlarmContent(
     }
 
     Column(modifier = modifier.fillMaxWidth()) {
-        HeaderTextField(hint = "알림...")
+        HeaderTextField(hint = stringResource(id = R.string.alarms_hint))
         Divider(
             modifier = Modifier.padding(top = 8.dp, bottom = 8.dp), thickness = Dp.Hairline,
             color = MaterialTheme.colorScheme.surfaceTint

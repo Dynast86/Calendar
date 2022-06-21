@@ -15,9 +15,11 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
+import com.dynast.calendar.R
 import com.dynast.calendar.ui.alarm.AlarmDateContent
 import com.dynast.calendar.ui.alarm.AlarmEnum
 import com.dynast.calendar.ui.alarm.AlarmRepeatContent
@@ -80,12 +82,13 @@ fun TaskAltTopBar(
 ) {
     val scope = rememberCoroutineScope()
     val context = LocalContext.current
+    val toastTitle = stringResource(id = R.string.alarm_name_confirm)
 
     Row(modifier = modifier, verticalAlignment = Alignment.CenterVertically) {
         IconButton(onClick = { onClicked(AlarmEnum.Close) }) {
             Icon(imageVector = Icons.Default.Close, contentDescription = "Close")
         }
-        Text(text = "", modifier = Modifier.weight(1f))
+        Text(text = stringResource(id = R.string.blank), modifier = Modifier.weight(1f))
         Row(
             horizontalArrangement = Arrangement.End,
             verticalAlignment = Alignment.CenterVertically,
@@ -94,9 +97,9 @@ fun TaskAltTopBar(
                     modifier = Modifier.padding(end = 8.dp),
                     onClick = {
                         scope.launch {
-                            Toast.makeText(context, "알림 제목을 입력해야 합니다.", Toast.LENGTH_SHORT).show()
+                            Toast.makeText(context, toastTitle, Toast.LENGTH_SHORT).show()
                         }
-                    }) { Text(text = "저장") }
+                    }) { Text(text = stringResource(id = R.string.save)) }
             }
         )
     }
