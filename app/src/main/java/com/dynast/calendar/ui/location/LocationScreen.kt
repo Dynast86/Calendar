@@ -1,6 +1,7 @@
 package com.dynast.calendar.ui.location
 
 import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
@@ -27,6 +28,8 @@ fun LocationScreen(
             SmallTopAppBar(
                 title = {
                     BasicTextField(
+                        modifier = Modifier.fillMaxWidth(),
+                        textStyle = MaterialTheme.typography.titleLarge,
                         value = textState,
                         onValueChange = { textState = it },
                         decorationBox = { innerTextField ->
@@ -34,8 +37,8 @@ fun LocationScreen(
                                 Text(text = stringResource(id = R.string.editor_location_add))
                             }
                             innerTextField()
-                    },
-                )
+                        },
+                    )
             },
             navigationIcon = {
                 IconButton(onClick = { onBackClick() }) {
@@ -43,8 +46,10 @@ fun LocationScreen(
                 }
             },
             actions = {
-                IconButton(onClick = { textState = TextFieldValue() }) {
-                    Icon(imageVector = Icons.Default.Close, contentDescription = "Delete")
+                if (textState.text.isNotEmpty()) {
+                    IconButton(onClick = { textState = TextFieldValue() }) {
+                        Icon(imageVector = Icons.Default.Close, contentDescription = "Delete")
+                    }
                 }
             }
         )
