@@ -51,4 +51,8 @@
     <string name="flag_own_ship_content">독서, 명상, 나 자산을 돌보기</string>
     <string name="flag_planned_content">모든일을 완벽하게</string>
 
+    <!-- Editor -->
+    <string name="editor_meet_add">화상 회의 추가</string>
+    <string name="editor_google_meet">Google Meet</string>
+    <string name="editor_location_add">위치 추가</string>
 </resources>

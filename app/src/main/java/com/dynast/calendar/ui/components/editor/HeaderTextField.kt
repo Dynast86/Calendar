@@ -1,5 +1,6 @@
 package com.dynast.calendar.ui.components
 
+import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.text.BasicTextField
@@ -16,28 +17,32 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
 fun HeaderTextField(
+    modifier: Modifier = Modifier,
     hint: String
 ) {
     var textState by remember { mutableStateOf(TextFieldValue()) }
 
-    BasicTextField(
-        modifier = Modifier
-            .fillMaxWidth()
-            .padding(start = 36.dp, end = 16.dp),
-        value = textState,
-        onValueChange = { textState = it },
-        decorationBox = { innerTextField ->
-            if (textState.text.isEmpty()) {
-                Text(
-                    text = hint,
-                    style = MaterialTheme.typography.headlineLarge
-                )
-            }
-            innerTextField()
-        },
-        maxLines = 1,
-        textStyle = MaterialTheme.typography.headlineLarge
-    )
+    Column {
+        BasicTextField(
+            modifier = Modifier
+                .fillMaxWidth()
+                .padding(start = 36.dp, end = 16.dp),
+            value = textState,
+            onValueChange = { textState = it },
+            decorationBox = { innerTextField ->
+                if (textState.text.isEmpty()) {
+                    Text(
+                        text = hint,
+                        style = MaterialTheme.typography.headlineLarge
+                    )
+                }
+                innerTextField()
+            },
+            maxLines = 1,
+            textStyle = MaterialTheme.typography.headlineLarge
+        )
+        DividerContent(modifier = modifier)
+    }
 }
 
 @Preview

@@ -15,7 +15,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
-import com.dynast.calendar.extension.ButtonEnum
+import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.theme.CalendarTheme
 import kotlinx.coroutines.launch
 
@@ -25,7 +25,7 @@ fun ModalBottomTopBar(
     modifier: Modifier = Modifier,
     title: String? = null,
     toast: String? = null,
-    onClicked: (ButtonEnum) -> Unit,
+    onClicked: (ButtonType) -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
     val scope = rememberCoroutineScope()
@@ -39,7 +39,7 @@ fun ModalBottomTopBar(
                     title?.apply { Text(text = this) }
                 },
                 navigationIcon = {
-                    IconButton(onClick = { onClicked(ButtonEnum.Close) }) {
+                    IconButton(onClick = { onClicked(ButtonType.Close) }) {
                         Icon(imageVector = Icons.Default.Close, contentDescription = "Close")
                     }
                 },

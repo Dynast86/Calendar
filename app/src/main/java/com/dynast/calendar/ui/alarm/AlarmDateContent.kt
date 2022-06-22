@@ -15,13 +15,15 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
-import com.dynast.calendar.extension.ButtonEnum
+import com.dynast.calendar.extension.type.ButtonType
+import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 
 @Composable
 fun AlarmDateContent(
-    onClicked: (ButtonEnum) -> Unit
+    modifier: Modifier = Modifier,
+    onClicked: (ButtonType) -> Unit
 ) {
     var checked by remember { mutableStateOf(true) }
     var timeState by remember { mutableStateOf(false) }
@@ -57,7 +59,7 @@ fun AlarmDateContent(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
-                .clickable { onClicked(ButtonEnum.Date) },
+                .clickable { onClicked(ButtonType.Date) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -67,11 +69,12 @@ fun AlarmDateContent(
                 text = "2022년 6월 17일 (금)"
             )
             if (timeState) {
-                TextButton(onClick = { onClicked(ButtonEnum.Time) }) {
+                TextButton(onClick = { onClicked(ButtonType.Time) }) {
                     Text(text = "오후 6:00")
                 }
             }
         }
+        DividerContent(modifier = modifier)
     }
 }
 

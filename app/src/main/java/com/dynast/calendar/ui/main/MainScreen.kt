@@ -1,6 +1,7 @@
 package com.dynast.calendar.ui.main
 
 import android.app.Activity
+import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
 import androidx.compose.animation.core.MutableTransitionState
@@ -16,13 +17,14 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dynast.calendar.extension.ButtonEnum
 import com.dynast.calendar.extension.objects.DrawerItems
 import com.dynast.calendar.extension.objects.FabItems
+import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.alarm.AlarmActivity
 import com.dynast.calendar.ui.components.*
 import com.dynast.calendar.ui.editor.EditorScreen
 import com.dynast.calendar.ui.flag.FlagActivity
+import com.dynast.calendar.ui.location.LocationActivity
 import com.dynast.calendar.ui.taskalt.TaskAltScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -120,19 +122,24 @@ fun MainScreen(
         sheet.setBottomState(item, scope)
     }
     EditorScreen(state = editorState) { item, sheet ->
-        sheet.setBottomState(item, scope)
+        sheet.setBottomState(item, scope, context)
     }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
 private fun ModalBottomSheetState.setBottomState(
-    item: ButtonEnum,
-    scope: CoroutineScope
+    item: ButtonType,
+    scope: CoroutineScope,
+    context: Context? = null
 ) {
     when (item) {
-        ButtonEnum.Close -> scope.launch {
+        ButtonType.Close -> scope.launch {
             hide()
         }
+        ButtonType.ViewAgenda -> scope.launch {
+            animateTo(ModalBottomSheetValue.HalfExpanded)
+        }
+        ButtonType.Location -> context?.startActivity(Intent(context, LocationActivity::class.java))
         else -> Unit
     }
 }

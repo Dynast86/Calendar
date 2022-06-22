@@ -16,7 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dynast.calendar.R
-import com.dynast.calendar.extension.ButtonEnum
+import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.extension.UiPopup
 import com.dynast.calendar.ui.theme.CalendarTheme
 import kotlinx.coroutines.launch
@@ -24,7 +24,7 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmScreen(
-    onClicked: (ButtonEnum) -> Unit,
+    onClicked: (ButtonType) -> Unit,
     viewModel: AlarmViewModel = hiltViewModel()
 ) {
     var popupState by remember { mutableStateOf(false) }
@@ -41,7 +41,7 @@ fun AlarmScreen(
         UiPopup(onConfirm = { popupState = false }) {
             backState = false
             popupState = false
-            onClicked(ButtonEnum.Close)
+            onClicked(ButtonType.Close)
         }
     }
     val toastTitle = stringResource(id = R.string.alarm_name_confirm)
@@ -57,7 +57,7 @@ fun AlarmScreen(
                         if (backState) {
                             popupState = true
                         } else {
-                            onClicked(ButtonEnum.Close)
+                            onClicked(ButtonType.Close)
                         }
                     }) {
                         Icon(Icons.Default.Close, contentDescription = "Close")

@@ -7,7 +7,7 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.ui.Modifier
 import androidx.fragment.app.FragmentActivity
-import com.dynast.calendar.extension.ButtonEnum
+import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.theme.CalendarTheme
 import com.google.android.material.datepicker.MaterialDatePicker
 import com.google.android.material.timepicker.MaterialTimePicker
@@ -28,7 +28,7 @@ class AlarmActivity : FragmentActivity() {
         }
     }
 
-    private val clickListener = object : (ButtonEnum) -> Unit {
+    private val clickListener = object : (ButtonType) -> Unit {
         val datePicker = MaterialDatePicker.Builder.datePicker()
             .setTitleText("")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build()
@@ -39,15 +39,15 @@ class AlarmActivity : FragmentActivity() {
             .setTitleText("")
             .build()
 
-        override fun invoke(item: ButtonEnum) {
+        override fun invoke(item: ButtonType) {
             when (item) {
-                ButtonEnum.Date -> {
+                ButtonType.Date -> {
                     datePicker.show(supportFragmentManager, item.toString())
                 }
-                ButtonEnum.Time -> {
+                ButtonType.Time -> {
                     timePicker.show(supportFragmentManager, item.toString())
                 }
-                ButtonEnum.Close -> finish()
+                ButtonType.Close -> finish()
             }
         }
     }
