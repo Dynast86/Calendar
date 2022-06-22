@@ -10,14 +10,15 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.ui.components.HeaderTextField
 import com.dynast.calendar.ui.components.RepeatDialogPopup
+import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
 fun AlarmContent(
     modifier: Modifier = Modifier,
-    onClicked: (ButtonType) -> Unit
+    clear: Boolean,
+    onClicked: ButtonType.() -> Unit
 ) {
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
@@ -28,7 +29,11 @@ fun AlarmContent(
     }
 
     Column(modifier = modifier.fillMaxWidth()) {
-        HeaderTextField(modifier = dividerModifier, hint = stringResource(id = R.string.alarms_hint))
+        HeaderTextField(
+            modifier = dividerModifier,
+            hint = stringResource(id = R.string.alarms_hint),
+            clear = clear
+        )
         AlarmDateContent(modifier = dividerModifier, onClicked = onClicked)
         AlarmRepeatContent(
             modifier = dividerModifier,
@@ -44,7 +49,7 @@ fun AlarmContent(
 @Composable
 fun AlarmContentPreview() {
     CalendarTheme {
-        AlarmContent(onClicked = { })
+        AlarmContent(clear = false) { }
     }
 }
 

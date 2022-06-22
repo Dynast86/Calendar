@@ -25,7 +25,7 @@ fun ModalBottomTopBar(
     modifier: Modifier = Modifier,
     title: String? = null,
     toast: String? = null,
-    onClicked: (ButtonType) -> Unit,
+    onClicked: ButtonType.() -> Unit,
     content: @Composable BoxScope.() -> Unit
 ) {
     val scope = rememberCoroutineScope()

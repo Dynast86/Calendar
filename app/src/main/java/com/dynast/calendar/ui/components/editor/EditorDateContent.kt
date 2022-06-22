@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.components
+package com.dynast.calendar.ui.components.editor
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.animation.core.MutableTransitionState
@@ -19,6 +19,8 @@ import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.alarm.repeatItems
+import com.dynast.calendar.ui.components.ContentItem
+import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable

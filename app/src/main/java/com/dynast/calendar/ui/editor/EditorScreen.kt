@@ -16,9 +16,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.ui.components.*
+import com.dynast.calendar.ui.components.editor.EditorDateContent
+import com.dynast.calendar.ui.components.editor.EditorUserContent
+import com.dynast.calendar.ui.components.ModalBottomTopBar
+import com.dynast.calendar.ui.components.RepeatDialogPopup
 import com.dynast.calendar.ui.components.editor.EditorLocationContent
 import com.dynast.calendar.ui.components.editor.EditorMeetContent
+import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterialApi::class)
@@ -27,6 +31,8 @@ fun EditorScreen(
     state: ModalBottomSheetState,
     onClicked: ModalBottomSheetState.(ButtonType) -> Unit
 ) {
+    var clear by remember { mutableStateOf(false) }
+
     ModalBottomSheetLayout(
         sheetState = state,
         sheetShape = if (state.currentValue == ModalBottomSheetValue.HalfExpanded) {
@@ -35,8 +41,15 @@ fun EditorScreen(
             RoundedCornerShape(0.dp)
         },
         sheetContent = {
-            ModalBottomTopBar(onClicked = { enum -> state.onClicked(enum) }) {
-                EditorSheetContent(onClicked = { enum -> state.onClicked(enum) })
+            ModalBottomTopBar(
+                onClicked = {
+                    state.onClicked(this)
+                    if (this == ButtonType.Close) clear = true
+                }) {
+                EditorSheetContent(clear = clear) {
+                    state.onClicked(this)
+                    if (this == ButtonType.Close) clear = true
+                }
             }
         }
     ) { }
@@ -44,7 +57,8 @@ fun EditorScreen(
 
 @Composable
 fun EditorSheetContent(
-    onClicked: (ButtonType) -> Unit
+    clear: Boolean,
+    onClicked: ButtonType.() -> Unit
 ) {
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
@@ -55,7 +69,11 @@ fun EditorSheetContent(
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        HeaderTextField(modifier = dividerModifier, hint = stringResource(id = R.string.task_alt_hilt))
+        HeaderTextField(
+            modifier = dividerModifier,
+            hint = stringResource(id = R.string.task_alt_hilt),
+            clear = clear
+        )
         EditorDateContent(modifier = dividerModifier, onClicked = onClicked)
         EditorUserContent(modifier = dividerModifier, onClicked = onClicked)
         EditorMeetContent(modifier = dividerModifier)
@@ -67,7 +85,7 @@ fun EditorSheetContent(
 @Composable
 fun EditorSheetContentPreview() {
     CalendarTheme {
-        EditorSheetContent(onClicked = {})
+        EditorSheetContent(clear = false) { }
     }
 }
 

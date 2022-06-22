@@ -48,6 +48,7 @@ class AlarmActivity : FragmentActivity() {
                     timePicker.show(supportFragmentManager, item.toString())
                 }
                 ButtonType.Close -> finish()
+                else -> Unit
             }
         }
     }

@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.components
+package com.dynast.calendar.ui.components.editor
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.icons.Icons
@@ -12,6 +12,8 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.extension.type.ButtonType
+import com.dynast.calendar.ui.components.ContentItem
+import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)

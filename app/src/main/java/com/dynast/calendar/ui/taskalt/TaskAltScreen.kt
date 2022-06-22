@@ -18,9 +18,9 @@ import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.alarm.AlarmDateContent
 import com.dynast.calendar.ui.alarm.AlarmRepeatContent
-import com.dynast.calendar.ui.components.HeaderTextField
 import com.dynast.calendar.ui.components.ModalBottomTopBar
 import com.dynast.calendar.ui.components.RepeatDialogPopup
+import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 
@@ -30,6 +30,8 @@ fun TaskAltScreen(
     state: ModalBottomSheetState,
     onClicked: ModalBottomSheetState.(ButtonType) -> Unit
 ) {
+    var clear by remember { mutableStateOf(false) }
+
     ModalBottomSheetLayout(
         sheetState = state,
         sheetShape = if (state.currentValue == ModalBottomSheetValue.HalfExpanded) {
@@ -39,9 +41,15 @@ fun TaskAltScreen(
         },
         sheetContent = {
             ModalBottomTopBar(
-                onClicked = { enum -> state.onClicked(enum) }
+                onClicked = {
+                    state.onClicked(this)
+                    if (this == ButtonType.Close) clear = true
+                }
             ) {
-                TaskAltSheetContent(onClicked = { enum -> state.onClicked(enum) })
+                TaskAltSheetContent(clear = clear) {
+                    state.onClicked(this)
+                    if (this == ButtonType.Close) clear = true
+                }
             }
         }
     ) { }
@@ -49,7 +57,8 @@ fun TaskAltScreen(
 
 @Composable
 fun TaskAltSheetContent(
-    onClicked: (ButtonType) -> Unit
+    clear: Boolean,
+    onClicked: ButtonType.() -> Unit
 ) {
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
@@ -60,7 +69,11 @@ fun TaskAltSheetContent(
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {
-        HeaderTextField(modifier = dividerModifier, hint = stringResource(id = R.string.task_alt_hilt))
+        HeaderTextField(
+            modifier = dividerModifier,
+            hint = stringResource(id = R.string.task_alt_hilt),
+            clear = clear
+        )
         TaskAltDetailContent(modifier = dividerModifier)
         AlarmDateContent(onClicked = onClicked)
         AlarmRepeatContent(
@@ -74,7 +87,7 @@ fun TaskAltSheetContent(
 @Composable
 fun TaskAltSheetContentPreview() {
     CalendarTheme {
-        TaskAltSheetContent(onClicked = {})
+        TaskAltSheetContent(clear = false) { }
     }
 }
 

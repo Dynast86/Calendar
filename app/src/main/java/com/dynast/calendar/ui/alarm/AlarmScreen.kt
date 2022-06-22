@@ -7,7 +7,7 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
@@ -24,16 +24,18 @@ import kotlinx.coroutines.launch
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun AlarmScreen(
-    onClicked: (ButtonType) -> Unit,
-    viewModel: AlarmViewModel = hiltViewModel()
+    viewModel: AlarmViewModel = hiltViewModel(),
+    onClicked: ButtonType.() -> Unit,
 ) {
     val context = LocalContext.current
     val alarmState = rememberAlarmState()
+    var clear by remember { mutableStateOf(false) }
 
     if (alarmState.popupState.value) {
         UiPopup(onConfirm = { alarmState.popupState.value = false }) {
             alarmState.backState.value = false
             alarmState.popupState.value = false
+            clear = true
             onClicked(ButtonType.Close)
         }
     }
@@ -50,6 +52,7 @@ fun AlarmScreen(
                         if (alarmState.backState.value) {
                             alarmState.popupState.value = true
                         } else {
+                            clear = true
                             onClicked(ButtonType.Close)
                         }
                     }) {
@@ -70,7 +73,7 @@ fun AlarmScreen(
         }
     ) { contentPadding ->
         Box(modifier = Modifier.padding(contentPadding)) {
-            AlarmContent(onClicked = onClicked)
+            AlarmContent(clear = clear) { onClicked(this) }
         }
     }
 }

@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.components
+package com.dynast.calendar.ui.components.editor
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -13,14 +13,19 @@ import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
 fun HeaderTextField(
     modifier: Modifier = Modifier,
-    hint: String
+    hint: String,
+    clear: Boolean
 ) {
     var textState by remember { mutableStateOf(TextFieldValue()) }
+    if (clear) {
+        textState = TextFieldValue()
+    }
 
     Column {
         BasicTextField(
@@ -49,6 +54,6 @@ fun HeaderTextField(
 @Composable
 fun HeaderTextFieldPreview() {
     CalendarTheme {
-        HeaderTextField(hint = stringResource(id = R.string.alarms_hint))
+        HeaderTextField(hint = stringResource(id = R.string.alarms_hint), clear = false)
     }
 }
