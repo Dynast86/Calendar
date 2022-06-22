@@ -12,6 +12,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.extension.ButtonEnum
 import com.dynast.calendar.ui.components.HeaderTextField
 import com.dynast.calendar.ui.components.RepeatDialogPopup
 import com.dynast.calendar.ui.theme.CalendarTheme
@@ -19,7 +20,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun AlarmContent(
     modifier: Modifier = Modifier,
-    onClicked: (AlarmEnum) -> Unit
+    onClicked: (ButtonEnum) -> Unit
 ) {
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }

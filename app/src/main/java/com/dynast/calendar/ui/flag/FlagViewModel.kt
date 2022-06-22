@@ -8,7 +8,4 @@ import javax.inject.Inject
 class FlagViewModel @Inject constructor(
 
 ) : ViewModel() {
-    companion object {
-        val TAG: String = FlagViewModel::class.java.simpleName
-    }
 }

@@ -91,13 +91,13 @@ fun ExpandFab(
     }
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun CalendarFabPreview() {
     CalendarFab(onFabClick = {})
 }
 
-@Preview(showBackground = true)
+@Preview
 @Composable
 fun ExpandFabPreview() {
     ExpandFab(

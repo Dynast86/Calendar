@@ -15,12 +15,13 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.extension.ButtonEnum
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 
 @Composable
 fun AlarmDateContent(
-    onClicked: (AlarmEnum) -> Unit
+    onClicked: (ButtonEnum) -> Unit
 ) {
     var checked by remember { mutableStateOf(true) }
     var timeState by remember { mutableStateOf(false) }
@@ -56,7 +57,7 @@ fun AlarmDateContent(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
-                .clickable { onClicked(AlarmEnum.Date) },
+                .clickable { onClicked(ButtonEnum.Date) },
             verticalAlignment = Alignment.CenterVertically
         ) {
             Text(
@@ -66,7 +67,7 @@ fun AlarmDateContent(
                 text = "2022년 6월 17일 (금)"
             )
             if (timeState) {
-                TextButton(onClick = { onClicked(AlarmEnum.Time) }) {
+                TextButton(onClick = { onClicked(ButtonEnum.Time) }) {
                     Text(text = "오후 6:00")
                 }
             }
