@@ -25,7 +25,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun EditorScreen(
     state: ModalBottomSheetState,
-    onClicked: (ButtonType, ModalBottomSheetState) -> Unit
+    onClicked: ModalBottomSheetState.(ButtonType) -> Unit
 ) {
     ModalBottomSheetLayout(
         sheetState = state,
@@ -35,8 +35,8 @@ fun EditorScreen(
             RoundedCornerShape(0.dp)
         },
         sheetContent = {
-            ModalBottomTopBar(onClicked = { enum -> onClicked(enum, state) }) {
-                EditorSheetContent(onClicked = { enum -> onClicked(enum, state) })
+            ModalBottomTopBar(onClicked = { enum -> state.onClicked(enum) }) {
+                EditorSheetContent(onClicked = { enum -> state.onClicked(enum) })
             }
         }
     ) { }
@@ -46,7 +46,6 @@ fun EditorScreen(
 fun EditorSheetContent(
     onClicked: (ButtonType) -> Unit
 ) {
-
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
     if (functionRepeatDialogPopup) {

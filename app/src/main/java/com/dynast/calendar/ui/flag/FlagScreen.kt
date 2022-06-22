@@ -32,7 +32,11 @@ fun FlagScreen(
         topBar = {
             SmallTopAppBar(
                 title = {
-                    AnimatedVisibility(visible = titleState, enter = Animated.slideEnter(), exit = Animated.slideExit()) {
+                    AnimatedVisibility(
+                        visible = titleState,
+                        enter = Animated.slideEnter(),
+                        exit = Animated.slideExit()
+                    ) {
                         Text(
                             text = stringResource(id = R.string.flag),
                             style = MaterialTheme.typography.headlineSmall

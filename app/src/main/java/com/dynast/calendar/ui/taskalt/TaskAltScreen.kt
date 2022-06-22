@@ -28,7 +28,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun TaskAltScreen(
     state: ModalBottomSheetState,
-    onClicked: (ButtonType, ModalBottomSheetState) -> Unit
+    onClicked: ModalBottomSheetState.(ButtonType) -> Unit
 ) {
     ModalBottomSheetLayout(
         sheetState = state,
@@ -39,9 +39,9 @@ fun TaskAltScreen(
         },
         sheetContent = {
             ModalBottomTopBar(
-                onClicked = { enum -> onClicked(enum, state) }
+                onClicked = { enum -> state.onClicked(enum) }
             ) {
-                TaskAltSheetContent(onClicked = { enum -> onClicked(enum, state) })
+                TaskAltSheetContent(onClicked = { enum -> state.onClicked(enum) })
             }
         }
     ) { }

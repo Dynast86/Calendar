@@ -9,17 +9,21 @@ import androidx.compose.material3.IconButton
 import androidx.compose.material3.SmallTopAppBar
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.tooling.preview.Preview
+import kotlinx.coroutines.CoroutineScope
 
 @Composable
 fun CalendarTopBar(
     title: String,
-    onDrawerClick: () -> Unit
+    onDrawerClick: CoroutineScope.() -> Unit
 ) {
+    val scope = rememberCoroutineScope()
+
     SmallTopAppBar(
         title = { Text(text = title) },
         navigationIcon = {
-            IconButton(onClick = onDrawerClick) {
+            IconButton(onClick = { scope.onDrawerClick() }) {
                 Icon(Icons.Default.Menu, contentDescription = "More")
             }
         },

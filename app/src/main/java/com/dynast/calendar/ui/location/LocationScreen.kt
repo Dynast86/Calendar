@@ -9,8 +9,10 @@ import androidx.compose.material.icons.filled.Close
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.input.TextFieldValue
 import androidx.compose.ui.tooling.preview.Preview
+import com.dynast.calendar.R
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -20,17 +22,18 @@ fun LocationScreen(
 ) {
     var textState by remember { mutableStateOf(TextFieldValue()) }
 
-    Scaffold(topBar = {
-        SmallTopAppBar(
-            title = {
-                BasicTextField(
-                    value = textState,
-                    onValueChange = { textState = it },
-                    decorationBox = { innerTextField ->
-                        if (textState.text.isEmpty()) {
-                            Text(text = "위치 추가")
-                        }
-                        innerTextField()
+    Scaffold(
+        topBar = {
+            SmallTopAppBar(
+                title = {
+                    BasicTextField(
+                        value = textState,
+                        onValueChange = { textState = it },
+                        decorationBox = { innerTextField ->
+                            if (textState.text.isEmpty()) {
+                                Text(text = stringResource(id = R.string.editor_location_add))
+                            }
+                            innerTextField()
                     },
                 )
             },

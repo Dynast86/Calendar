@@ -4,14 +4,12 @@ import android.app.Activity
 import android.content.Context
 import android.content.Intent
 import androidx.activity.compose.BackHandler
-import androidx.compose.animation.core.MutableTransitionState
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.rememberModalBottomSheetState
 import androidx.compose.material3.*
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
@@ -25,6 +23,7 @@ import com.dynast.calendar.ui.components.*
 import com.dynast.calendar.ui.editor.EditorScreen
 import com.dynast.calendar.ui.flag.FlagActivity
 import com.dynast.calendar.ui.location.LocationActivity
+import com.dynast.calendar.ui.main.state.rememberMainState
 import com.dynast.calendar.ui.taskalt.TaskAltScreen
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -39,27 +38,28 @@ fun MainScreen(
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    val snackBarHostState = remember { SnackbarHostState() }
-
-    val drawerState = rememberDrawerState(initialValue = DrawerValue.Closed)
     var selected by remember { mutableStateOf(items[state]) }
-    val fabExpand = remember { MutableTransitionState(initialState = false) }
-    val taskAlt = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
-    val editorState = rememberModalBottomSheetState(initialValue = ModalBottomSheetValue.Hidden)
+    val mainState = rememberMainState()
 
     val backState by remember { mutableStateOf(true) }
     BackHandler(enabled = backState) {
         scope.launch {
-            if (drawerState.isOpen) drawerState.close().run { return@launch }
-            if (taskAlt.isVisible) taskAlt.hide().run { return@launch }
-            if (fabExpand.currentState) with(fabExpand) { targetState = false }.run { return@launch }
-            if (editorState.isVisible) editorState.hide().run { return@launch }
+            if (mainState.drawerState.isOpen) mainState.drawerState.close()
+                .run { return@launch }
+            if (mainState.taskAltState.isVisible) mainState.taskAltState.hide()
+                .run { return@launch }
+            if (mainState.fabState.currentState) with(mainState.fabState) {
+                targetState = false
+            }.run { return@launch }
+            if (mainState.editorState.isVisible) mainState.editorState.hide()
+                .run { return@launch }
 
             (context as Activity).apply { finish() }
         }
     }
 
     ModalNavigationDrawer(
+        drawerContentColor = MaterialTheme.colorScheme.inverseOnSurface,
         drawerContent = {
             CalendarDrawer(
                 selectedDestination = selected,
@@ -70,33 +70,25 @@ fun MainScreen(
                         }
                         else -> selected = item
                     }
-                    scope.launch { drawerState.close() }
+                    scope.launch { mainState.drawerState.close() }
                 },
-                onHeaderClicked = { scope.launch { drawerState.close() } }
+                onHeaderClicked = { launch { mainState.drawerState.close() } }
             )
         },
-        drawerState = drawerState
+        drawerState = mainState.drawerState
     ) {
         Scaffold(
-            topBar = { CalendarTopBar(title = "7월", onDrawerClick = { scope.launch { drawerState.open() } }) },
+            topBar = {
+                CalendarTopBar(
+                    title = "7월"
+                ) { launch { mainState.drawerState.open() } }
+            },
             floatingActionButton = {
-                FloatingActionButton(onClick = { fabExpand.targetState = true }) {
+                FloatingActionButton(onClick = { mainState.fabState.targetState = true }) {
                     Icon(imageVector = Icons.Default.Add, contentDescription = "Add")
                 }
-//                CalendarFab(onFabClick = {
-//                    scope.launch {
-//                        val snackResult = snackBarHostState.showSnackbar(
-//                            message = "FAB선택",
-//                            actionLabel = "확인",
-//                            duration = SnackbarDuration.Indefinite
-//                        )
-//                        if (snackResult == SnackbarResult.ActionPerformed) {
-//                            processState = false
-//                        }
-//                    }
-//                })
             },
-            snackbarHost = { SnackBarHost(snackBarHostState = snackBarHostState) }
+            snackbarHost = { SnackBarHost(snackBarHostState = mainState.snackBarHostState) }
         ) { paddingValues ->
             AppContent(
                 modifier = Modifier.padding(paddingValues),
@@ -106,24 +98,24 @@ fun MainScreen(
         }
     }
 
-    ExpandFab(currentState = fabExpand, onClicked = { item ->
-        fabExpand.targetState = false
+    ExpandFab(currentState = mainState.fabState, onClicked = { item ->
+        mainState.fabState.targetState = false
         when (item) {
             FabItems.Flag -> context.startActivity(Intent(context, FlagActivity::class.java))
             FabItems.Add -> context.startActivity(Intent(context, FlagActivity::class.java))
             FabItems.Alarms -> context.startActivity(Intent(context, AlarmActivity::class.java))
-            FabItems.Event -> scope.launch { editorState.animateTo(ModalBottomSheetValue.Expanded) }
-            FabItems.TaskAlt -> scope.launch { taskAlt.animateTo(ModalBottomSheetValue.Expanded) }
+            FabItems.Event -> scope.launch { mainState.editorState.animateTo(ModalBottomSheetValue.Expanded) }
+            FabItems.TaskAlt -> scope.launch {
+                mainState.taskAltState.animateTo(
+                    ModalBottomSheetValue.Expanded
+                )
+            }
             else -> Unit
         }
     })
 
-    TaskAltScreen(state = taskAlt) { item, sheet ->
-        sheet.setBottomState(item, scope)
-    }
-    EditorScreen(state = editorState) { item, sheet ->
-        sheet.setBottomState(item, scope, context)
-    }
+    TaskAltScreen(state = mainState.taskAltState) { item -> setBottomState(item, scope) }
+    EditorScreen(state = mainState.editorState) { item -> setBottomState(item, scope, context) }
 }
 
 @OptIn(ExperimentalMaterialApi::class)
