@@ -27,7 +27,7 @@ import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.objects.AlarmRepeatItems
-import com.dynast.calendar.ui.alarm.repeatItems
+import com.dynast.calendar.presentation.alarm.repeatItems
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterialApi::class)

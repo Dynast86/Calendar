@@ -4,6 +4,7 @@
 
     <string name="blank" />
     <string name="save">저장</string>
+    <string name="completion">완료</string>
 
     <!-- Drawer -->
     <string name="drawer_view_agenda">일정</string>
@@ -55,4 +56,8 @@
     <string name="editor_meet_add">화상 회의 추가</string>
     <string name="editor_google_meet">Google Meet</string>
     <string name="editor_location_add">위치 추가</string>
+    <string name="editor_user_add">사용자 추가</string>
+    <string name="editor_view_event">일정 보기</string>
+    <string name="editor_users_add">추가된 참석자</string>
+    <string name="editor_options">선택사항</string>
 </resources>

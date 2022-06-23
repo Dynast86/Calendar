@@ -18,7 +18,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.ui.alarm.repeatItems
+import com.dynast.calendar.presentation.alarm.repeatItems
 import com.dynast.calendar.ui.components.ContentItem
 import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme

@@ -30,7 +30,7 @@ import androidx.compose.ui.unit.IntOffset
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.domain.model.card.AgendaCardData
-import com.dynast.calendar.ui.detail.DetailActivity
+import com.dynast.calendar.presentation.detail.DetailActivity
 import kotlin.math.roundToInt
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalMaterialApi::class)

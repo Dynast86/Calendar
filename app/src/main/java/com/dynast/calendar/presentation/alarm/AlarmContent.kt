@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.taskalt
+package com.dynast.calendar.presentation.alarm
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,14 +9,13 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.presentation.alarm.AlarmDateContent
-import com.dynast.calendar.presentation.alarm.AlarmRepeatContent
 import com.dynast.calendar.ui.components.RepeatDialogPopup
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun TaskAltSheetContent(
+fun AlarmContent(
+    modifier: Modifier = Modifier,
     clear: Boolean,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -26,25 +25,28 @@ fun TaskAltSheetContent(
         RepeatDialogPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
-    Column(modifier = Modifier.fillMaxWidth()) {
+    Column(modifier = modifier.fillMaxWidth()) {
         HeaderTextField(
             modifier = Styled.defaultPadding,
-            hint = stringResource(id = R.string.task_alt_hilt),
+            hint = stringResource(id = R.string.alarms_hint),
             clear = clear
         )
-        TaskAltDetailContent(modifier = Styled.defaultPadding)
-        AlarmDateContent { onClicked(this) }
+        AlarmDateContent(modifier = Styled.defaultPadding) { onClicked(this) }
         AlarmRepeatContent(
             modifier = Styled.defaultPadding,
-            defaultValue = repeatState
-        ) { functionRepeatDialogPopup = true }
+            defaultValue = repeatState,
+            onClicked = { functionRepeatDialogPopup = true })
+//        RepeatDialogPopup {
+//
+//        }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun TaskAltSheetContentPreview() {
+fun AlarmContentPreview() {
     CalendarTheme {
-        TaskAltSheetContent(clear = false) { }
+        AlarmContent(clear = false) { }
     }
 }
+
