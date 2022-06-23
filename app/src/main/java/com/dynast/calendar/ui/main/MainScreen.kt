@@ -17,14 +17,15 @@ import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
 import com.dynast.calendar.extension.objects.DrawerItems
 import com.dynast.calendar.extension.objects.FabItems
+import com.dynast.calendar.extension.type.BottomType
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.alarm.AlarmActivity
 import com.dynast.calendar.ui.components.*
-import com.dynast.calendar.ui.editor.EditorScreen
+import com.dynast.calendar.ui.editor.EditorSheetContent
 import com.dynast.calendar.ui.flag.FlagActivity
 import com.dynast.calendar.ui.location.LocationActivity
 import com.dynast.calendar.ui.main.state.rememberMainState
-import com.dynast.calendar.ui.taskalt.TaskAltScreen
+import com.dynast.calendar.ui.taskalt.TaskAltSheetContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -44,15 +45,11 @@ fun MainScreen(
     val backState by remember { mutableStateOf(true) }
     BackHandler(enabled = backState) {
         scope.launch {
-            if (mainState.drawerState.isOpen) mainState.drawerState.close()
-                .run { return@launch }
-            if (mainState.taskAltState.isVisible) mainState.taskAltState.hide()
-                .run { return@launch }
-            if (mainState.fabState.currentState) with(mainState.fabState) {
-                targetState = false
-            }.run { return@launch }
-            if (mainState.editorState.isVisible) mainState.editorState.hide()
-                .run { return@launch }
+            with(mainState) {
+                if (drawerState.isOpen) drawerState.close().run { return@launch }
+                if (bottomSheetState.isVisible) bottomSheetState.hide().run { return@launch }
+                if (fabState.currentState) with(fabState) { targetState = false }.run { return@launch }
+            }
 
             (context as Activity).apply { finish() }
         }
@@ -65,12 +62,10 @@ fun MainScreen(
                 selectedDestination = selected,
                 onDrawerClicked = { item ->
                     when (item) {
-                        DrawerItems.Refresh -> scope.launch {
-                            viewModel.setProcessState(true)
-                        }
+                        DrawerItems.Refresh -> launch { viewModel.setProcessState(true) }
                         else -> selected = item
                     }
-                    scope.launch { mainState.drawerState.close() }
+                    launch { mainState.drawerState.close() }
                 },
                 onHeaderClicked = { launch { mainState.drawerState.close() } }
             )
@@ -104,18 +99,40 @@ fun MainScreen(
             FabItems.Flag -> context.startActivity(Intent(context, FlagActivity::class.java))
             FabItems.Add -> context.startActivity(Intent(context, FlagActivity::class.java))
             FabItems.Alarms -> context.startActivity(Intent(context, AlarmActivity::class.java))
-            FabItems.Event -> scope.launch { mainState.editorState.animateTo(ModalBottomSheetValue.Expanded) }
+            FabItems.Event -> scope.launch {
+                with(mainState) {
+                    bottomType.value = BottomType.Editor
+                    bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
+                }
+            }
             FabItems.TaskAlt -> scope.launch {
-                mainState.taskAltState.animateTo(
-                    ModalBottomSheetValue.Expanded
-                )
+                with(mainState) {
+                    bottomType.value = BottomType.TaskAlt
+                    bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
+                }
             }
             else -> Unit
         }
     })
 
-    TaskAltScreen(state = mainState.taskAltState) { item -> setBottomState(item, scope) }
-    EditorScreen(state = mainState.editorState) { item -> setBottomState(item, scope, context) }
+    BottomSheetContent(
+        state = mainState.bottomSheetState,
+        onClicked = { item ->
+            setBottomState(item, scope, context)
+        }) { clear ->
+        with(mainState) {
+            when (bottomType.value) {
+                BottomType.TaskAlt -> TaskAltSheetContent(clear = clear) {
+                    bottomSheetState.setBottomState(item = this, scope = scope, context = context)
+//                    if (this == ButtonType.Close) clear = true
+                }
+                BottomType.Editor -> EditorSheetContent(clear = clear) {
+                    bottomSheetState.setBottomState(item = this, scope = scope, context = context)
+//                    if (this == ButtonType.Close) clear = true
+                }
+            }
+        }
+    }
 }
 
 @OptIn(ExperimentalMaterialApi::class)

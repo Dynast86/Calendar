@@ -20,7 +20,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun EditorUserContent(
     modifier: Modifier = Modifier,
-    onClicked: (ButtonType) -> Unit
+    onClicked: ButtonType.() -> Unit
 ) {
     Column {
         ContentItem(

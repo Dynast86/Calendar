@@ -3,7 +3,6 @@ package com.dynast.calendar.ui.components
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.sizeIn
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -26,6 +25,7 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.window.Dialog
+import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.objects.AlarmRepeatItems
 import com.dynast.calendar.ui.alarm.repeatItems
 import com.dynast.calendar.ui.theme.CalendarTheme
@@ -34,7 +34,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun RepeatDialogPopup(
     defaultValue: Int = 0,
-    onChecked: (Int) -> Unit,
+    onChecked: Int.() -> Unit,
     onDismiss: () -> Unit
 ) {
     val selected by remember { mutableStateOf(defaultValue) }
@@ -49,7 +49,7 @@ fun RepeatDialogPopup(
             shape = RoundedCornerShape(28.dp),
             color = MaterialTheme.colorScheme.surface,
         ) {
-            LazyColumn(modifier = Modifier.padding(top = 8.dp, bottom = 8.dp)) {
+            LazyColumn(modifier = Styled.defaultPadding) {
                 itemsIndexed(repeatItems) { index: Int, item: AlarmRepeatItems ->
                     ListItem(modifier = Modifier.clickable {
                         onChecked(index)
@@ -75,8 +75,6 @@ fun RepeatDialogPopup(
 @Composable
 fun RepeatDialogPopupPreview() {
     CalendarTheme {
-        RepeatDialogPopup(defaultValue = 1, onChecked = {}) {
-
-        }
+        RepeatDialogPopup(defaultValue = 1, onChecked = {}) { }
     }
 }

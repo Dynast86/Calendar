@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.alarm
+package com.dynast.calendar.ui.taskalt
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -9,13 +9,14 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
+import com.dynast.calendar.ui.alarm.AlarmDateContent
+import com.dynast.calendar.ui.alarm.AlarmRepeatContent
 import com.dynast.calendar.ui.components.RepeatDialogPopup
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun AlarmContent(
-    modifier: Modifier = Modifier,
+fun TaskAltSheetContent(
     clear: Boolean,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -25,28 +26,25 @@ fun AlarmContent(
         RepeatDialogPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         HeaderTextField(
             modifier = Styled.defaultPadding,
-            hint = stringResource(id = R.string.alarms_hint),
+            hint = stringResource(id = R.string.task_alt_hilt),
             clear = clear
         )
-        AlarmDateContent(modifier = Styled.defaultPadding) { onClicked(this) }
+        TaskAltDetailContent(modifier = Styled.defaultPadding)
+        AlarmDateContent { onClicked(this) }
         AlarmRepeatContent(
             modifier = Styled.defaultPadding,
-            defaultValue = repeatState,
-            onClicked = { functionRepeatDialogPopup = true })
-//        RepeatDialogPopup {
-//
-//        }
+            defaultValue = repeatState
+        ) { functionRepeatDialogPopup = true }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AlarmContentPreview() {
+fun TaskAltSheetContentPreview() {
     CalendarTheme {
-        AlarmContent(clear = false) { }
+        TaskAltSheetContent(clear = false) { }
     }
 }
-

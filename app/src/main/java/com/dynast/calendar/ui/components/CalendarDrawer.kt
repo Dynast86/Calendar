@@ -16,6 +16,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.Dp
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.objects.DrawerItems
 import kotlinx.coroutines.CoroutineScope
 
@@ -33,7 +34,7 @@ fun CalendarDrawer(
     modifier: Modifier = Modifier,
     selectedDestination: DrawerItems,
     onHeaderClicked: CoroutineScope.() -> Unit,
-    onDrawerClicked: (DrawerItems) -> Unit
+    onDrawerClicked: CoroutineScope.(DrawerItems) -> Unit
 ) {
     val scope = rememberCoroutineScope()
 
@@ -65,16 +66,16 @@ fun CalendarDrawer(
                 icon = { Icon(imageVector = item.image, contentDescription = stringResource(id = item.title)) },
                 label = { Text(text = stringResource(id = item.title), modifier = Modifier.padding(horizontal = 16.dp)) },
                 selected = selectedDestination.route == item.route,
-                onClick = { onDrawerClicked(item) },
+                onClick = { scope.onDrawerClicked(item) },
                 colors = NavigationDrawerItemDefaults.colors(unselectedContainerColor = Color.Transparent)
             )
         }
-        Divider(thickness = Dp.Hairline, modifier = Modifier.padding(top = 8.dp, bottom = 8.dp))
+        Divider(thickness = Dp.Hairline, modifier = Styled.defaultPadding)
         NavigationDrawerItem(
             selected = false,
             icon = { Icon(imageVector = DrawerItems.Refresh.image, contentDescription = stringResource(id = DrawerItems.Refresh.title)) },
             label = { Text(text = stringResource(id = DrawerItems.Refresh.title), modifier = Modifier.padding(horizontal = 16.dp)) },
-            onClick = { onDrawerClicked(DrawerItems.Refresh) },
+            onClick = { scope.onDrawerClicked(DrawerItems.Refresh) },
             colors = NavigationDrawerItemDefaults.colors(unselectedContainerColor = Color.Transparent)
         )
     }
@@ -85,6 +86,5 @@ fun CalendarDrawer(
 fun CalendarDrawerPreview() {
     CalendarDrawer(
         selectedDestination = DrawerItems.CalendarViewMonth,
-        onHeaderClicked = {},
-        onDrawerClicked = {})
+        onHeaderClicked = {}) { }
 }

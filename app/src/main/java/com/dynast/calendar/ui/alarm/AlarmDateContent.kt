@@ -23,7 +23,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun AlarmDateContent(
     modifier: Modifier = Modifier,
-    onClicked: (ButtonType) -> Unit
+    onClicked: ButtonType.() -> Unit
 ) {
     var checked by remember { mutableStateOf(true) }
     var timeState by remember { mutableStateOf(false) }

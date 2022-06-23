@@ -27,7 +27,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 fun EditorDateContent(
     modifier: Modifier = Modifier,
     repeatValue: Int = 0,
-    onClicked: (ButtonType) -> Unit
+    onClicked: ButtonType.() -> Unit
 ) {
     var checked by remember { mutableStateOf(true) }
     var timeState by remember { mutableStateOf(false) }

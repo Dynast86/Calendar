@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.alarm
+package com.dynast.calendar.ui.editor
 
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -10,12 +10,11 @@ import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.ui.components.RepeatDialogPopup
-import com.dynast.calendar.ui.components.editor.HeaderTextField
+import com.dynast.calendar.ui.components.editor.*
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun AlarmContent(
-    modifier: Modifier = Modifier,
+fun EditorSheetContent(
     clear: Boolean,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -25,28 +24,23 @@ fun AlarmContent(
         RepeatDialogPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
-    Column(modifier = modifier.fillMaxWidth()) {
+    Column(modifier = Modifier.fillMaxWidth()) {
         HeaderTextField(
             modifier = Styled.defaultPadding,
-            hint = stringResource(id = R.string.alarms_hint),
+            hint = stringResource(id = R.string.task_alt_hilt),
             clear = clear
         )
-        AlarmDateContent(modifier = Styled.defaultPadding) { onClicked(this) }
-        AlarmRepeatContent(
-            modifier = Styled.defaultPadding,
-            defaultValue = repeatState,
-            onClicked = { functionRepeatDialogPopup = true })
-//        RepeatDialogPopup {
-//
-//        }
+        EditorDateContent(modifier = Styled.defaultPadding) { onClicked(this) }
+        EditorUserContent(modifier = Styled.defaultPadding) { onClicked(this) }
+        EditorMeetContent(modifier = Styled.defaultPadding)
+        EditorLocationContent(modifier = Styled.defaultPadding) { onClicked(this) }
     }
 }
 
 @Preview(showBackground = true)
 @Composable
-fun AlarmContentPreview() {
+fun EditorSheetContentPreview() {
     CalendarTheme {
-        AlarmContent(clear = false) { }
+        EditorSheetContent(clear = false) { }
     }
 }
-

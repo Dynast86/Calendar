@@ -17,7 +17,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun EditorLocationContent(
     modifier: Modifier = Modifier,
-    onClicked: (ButtonType) -> Unit
+    onClicked: ButtonType.() -> Unit
 ) {
     Column {
         ContentItem(
