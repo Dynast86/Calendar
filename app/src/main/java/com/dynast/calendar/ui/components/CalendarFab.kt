@@ -14,9 +14,10 @@ import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Animated
 import com.dynast.calendar.extension.objects.FabItems
+import com.dynast.calendar.extension.objects.FabItems.*
 
 val fabItems = listOf(
-    FabItems.Flag, FabItems.Alarms, FabItems.TaskAlt, FabItems.Event
+    Flag, Alarms, TaskAlt, Event
 )
 
 @Composable
@@ -24,7 +25,7 @@ fun CalendarFab(
     onFabClick: () -> Unit
 ) {
     FloatingActionButton(onClick = onFabClick) {
-        Icon(imageVector = FabItems.Add.image, contentDescription = FabItems.Add.route)
+        Icon(imageVector = Add.image, contentDescription = Add.route)
     }
 }
 
@@ -47,7 +48,7 @@ fun ExpandFab(
             color = colorResource(id = R.color.fab_background),
             onClick = {
                 currentState.targetState = !currentState.targetState
-                onClicked(FabItems.Close)
+                onClicked(Close)
             }
         ) {
             Column(
@@ -81,9 +82,9 @@ fun ExpandFab(
 
                 FloatingActionButton(onClick = {
                     currentState.targetState = !currentState.targetState
-                    onClicked(FabItems.Close)
+                    onClicked(Close)
                 }) {
-                    Icon(imageVector = FabItems.Close.image, contentDescription = FabItems.Close.route)
+                    Icon(imageVector = Close.image, contentDescription = Close.route)
                 }
             }
 

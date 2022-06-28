@@ -53,7 +53,7 @@ fun UserAddContent(
                 actions = {
                     if (textState.text.isNotEmpty()) {
                         IconButton(onClick = { textState = TextFieldValue() }) {
-                            Icon(imageVector = Icons.Default.Close, contentDescription = "Delete")
+                            Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(id = R.string.delete))
                         }
                     } else {
                         TextButton(onClick = onBackClick) { Text(text = stringResource(id = R.string.completion)) }

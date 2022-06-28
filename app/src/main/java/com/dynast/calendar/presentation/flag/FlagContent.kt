@@ -16,12 +16,12 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
-import com.dynast.calendar.extension.objects.Flags
+import com.dynast.calendar.extension.objects.Flags.*
 import com.dynast.calendar.ui.components.FlagCard
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 val flagItems = listOf(
-    Flags.Training, Flags.Improvement, Flags.FriendShip, Flags.OwnShip, Flags.Planned
+    Training, Improvement, FriendShip, OwnShip, Planned
 )
 
 @Composable

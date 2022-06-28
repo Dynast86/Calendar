@@ -5,6 +5,7 @@
     <string name="blank" />
     <string name="save">저장</string>
     <string name="completion">완료</string>
+    <string name="delete">삭제</string>
 
     <!-- Drawer -->
     <string name="drawer_view_agenda">일정</string>
@@ -29,7 +30,13 @@
     <string name="alarm_repeat_every_week">매주</string>
     <string name="alarm_repeat_every_month">매월</string>
     <string name="alarm_repeat_every_year">매년</string>
-    <string name="alarm_repeat_config">맞춤설정…</string>
+    <string name="alarm_config">맞춤설정…</string>
+
+    <string name="alarm_before_five_minute">5분 전</string>
+    <string name="alarm_before_ten_minute">10분 전</string>
+    <string name="alarm_before_fifth_minute">15분 전</string>
+    <string name="alarm_before_one_hour">1시간 전</string>
+    <string name="alarm_before_one_day">1일 전</string>
 
     <string name="alarms_hint">알림…</string>
     <string name="alarm_name_confirm">제목을 입력해야 합니다.</string>
@@ -60,4 +67,35 @@
     <string name="editor_view_event">일정 보기</string>
     <string name="editor_users_add">추가된 참석자</string>
     <string name="editor_options">선택사항</string>
+    <string name="editor_alarm_add">알림 추가</string>
+
+    <!-- ColorPalette -->
+<!--    <string-array name="color_palette">-->
+<!--        <item>@string/color_palette_tomato</item>-->
+<!--        <item>@string/color_palette_mandarin</item>-->
+<!--        <item>@string/color_palette_banana</item>-->
+<!--        <item>@string/color_palette_basil</item>-->
+<!--        <item>@string/color_palette_sage</item>-->
+<!--        <item>@string/color_palette_peacock</item>-->
+<!--        <item>@string/color_palette_blueberries</item>-->
+<!--        <item>@string/color_palette_lavender</item>-->
+<!--        <item>@string/color_palette_grape</item>-->
+<!--        <item>@string/color_palette_flamingos</item>-->
+<!--        <item>@string/color_palette_black_carbon</item>-->
+<!--        <item>@string/color_palette_default</item>-->
+<!--    </string-array>-->
+
+    <string name="color_palette_tomato">토마토</string>
+    <string name="color_palette_mandarin">귤</string>
+    <string name="color_palette_banana">바나나</string>
+    <string name="color_palette_basil">바질</string>
+    <string name="color_palette_sage">세이지</string>
+    <string name="color_palette_peacock">공작</string>
+    <string name="color_palette_blueberries">블루베리</string>
+    <string name="color_palette_lavender">라벤더</string>
+    <string name="color_palette_grape">포도</string>
+    <string name="color_palette_flamingos">홍학</string>
+    <string name="color_palette_carbon">흑연</string>
+    <string name="color_palette_default">기본 색상</string>
+
 </resources>

@@ -48,7 +48,7 @@ fun LocationScreen(
             actions = {
                 if (textState.text.isNotEmpty()) {
                     IconButton(onClick = { textState = TextFieldValue() }) {
-                        Icon(imageVector = Icons.Default.Close, contentDescription = "Delete")
+                        Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(id = R.string.delete))
                     }
                 }
             }

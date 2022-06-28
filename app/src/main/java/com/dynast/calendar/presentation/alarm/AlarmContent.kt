@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.ui.components.RepeatDialogPopup
+import com.dynast.calendar.ui.components.RepeatPopup
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
@@ -22,7 +22,7 @@ fun AlarmContent(
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
     if (functionRepeatDialogPopup) {
-        RepeatDialogPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
+        RepeatPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
     Column(modifier = modifier.fillMaxWidth()) {

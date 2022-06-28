@@ -20,17 +20,17 @@ import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.hilt.navigation.compose.hiltViewModel
-import com.dynast.calendar.extension.objects.DrawerItems
-import com.dynast.calendar.extension.objects.FabItems
+import com.dynast.calendar.extension.objects.DrawerItems.Refresh
+import com.dynast.calendar.extension.objects.FabItems.*
 import com.dynast.calendar.extension.type.BottomType
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.alarm.AlarmActivity
-import com.dynast.calendar.presentation.userAdd.UserAddActivity
-import com.dynast.calendar.ui.components.*
-import com.dynast.calendar.ui.editor.EditorSheetContent
 import com.dynast.calendar.presentation.flag.FlagActivity
 import com.dynast.calendar.presentation.location.LocationActivity
 import com.dynast.calendar.presentation.main.state.rememberMainState
+import com.dynast.calendar.presentation.userAdd.UserAddActivity
+import com.dynast.calendar.ui.components.*
+import com.dynast.calendar.ui.editor.EditorSheetContent
 import com.dynast.calendar.ui.taskalt.TaskAltSheetContent
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
@@ -75,7 +75,7 @@ fun MainScreen(
                 selectedDestination = selected,
                 onDrawerClicked = { item ->
                     when (item) {
-                        DrawerItems.Refresh -> launch { viewModel.setProcessState(true) }
+                        Refresh -> launch { viewModel.setProcessState(true) }
                         else -> selected = item
                     }
                     launch { mainState.drawerState.close() }
@@ -109,16 +109,16 @@ fun MainScreen(
     ExpandFab(currentState = mainState.fabState) { item ->
         mainState.fabState.targetState = false
         when (item) {
-            FabItems.Flag -> context.startActivity(Intent(context, FlagActivity::class.java))
-            FabItems.Add -> context.startActivity(Intent(context, FlagActivity::class.java))
-            FabItems.Alarms -> context.startActivity(Intent(context, AlarmActivity::class.java))
-            FabItems.Event -> scope.launch {
+            Flag -> context.startActivity(Intent(context, FlagActivity::class.java))
+            Add -> context.startActivity(Intent(context, FlagActivity::class.java))
+            Alarms -> context.startActivity(Intent(context, AlarmActivity::class.java))
+            Event -> scope.launch {
                 with(mainState) {
                     bottomType.value = BottomType.Editor
                     bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
                 }
             }
-            FabItems.TaskAlt -> scope.launch {
+            TaskAlt -> scope.launch {
                 with(mainState) {
                     bottomType.value = BottomType.TaskAlt
                     bottomSheetState.animateTo(ModalBottomSheetValue.Expanded)
@@ -162,6 +162,9 @@ private fun ModalBottomSheetState.setBottomState(
         ButtonType.ViewAgenda -> scope.launch { animateTo(ModalBottomSheetValue.HalfExpanded) }
         ButtonType.UserAdd -> launcher?.launch(Intent(context, UserAddActivity::class.java))
         ButtonType.Location -> context?.startActivity(Intent(context, LocationActivity::class.java))
+        ButtonType.Color -> {
+
+        }
         else -> Unit
     }
 }

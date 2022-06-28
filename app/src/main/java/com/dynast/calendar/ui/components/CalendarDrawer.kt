@@ -18,14 +18,11 @@ import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.objects.DrawerItems
+import com.dynast.calendar.extension.objects.DrawerItems.*
 import kotlinx.coroutines.CoroutineScope
 
 val items = listOf(
-    DrawerItems.ViewAgenda,
-    DrawerItems.CalendarViewDay,
-    DrawerItems.ViewWeek,
-    DrawerItems.CalendarViewWeek,
-    DrawerItems.CalendarViewMonth
+    ViewAgenda, CalendarViewDay, ViewWeek, CalendarViewWeek, CalendarViewMonth
 )
 
 @OptIn(ExperimentalMaterial3Api::class)
@@ -73,9 +70,9 @@ fun CalendarDrawer(
         Divider(thickness = Dp.Hairline, modifier = Styled.defaultPadding)
         NavigationDrawerItem(
             selected = false,
-            icon = { Icon(imageVector = DrawerItems.Refresh.image, contentDescription = stringResource(id = DrawerItems.Refresh.title)) },
-            label = { Text(text = stringResource(id = DrawerItems.Refresh.title), modifier = Modifier.padding(horizontal = 16.dp)) },
-            onClick = { scope.onDrawerClicked(DrawerItems.Refresh) },
+            icon = { Icon(imageVector = Refresh.image, contentDescription = stringResource(id = Refresh.title)) },
+            label = { Text(text = stringResource(id = Refresh.title), modifier = Modifier.padding(horizontal = 16.dp)) },
+            onClick = { scope.onDrawerClicked(Refresh) },
             colors = NavigationDrawerItemDefaults.colors(unselectedContainerColor = Color.Transparent)
         )
     }
@@ -85,6 +82,6 @@ fun CalendarDrawer(
 @Composable
 fun CalendarDrawerPreview() {
     CalendarDrawer(
-        selectedDestination = DrawerItems.CalendarViewMonth,
+        selectedDestination = CalendarViewMonth,
         onHeaderClicked = {}) { }
 }

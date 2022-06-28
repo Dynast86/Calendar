@@ -11,7 +11,7 @@ import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.alarm.AlarmDateContent
 import com.dynast.calendar.presentation.alarm.AlarmRepeatContent
-import com.dynast.calendar.ui.components.RepeatDialogPopup
+import com.dynast.calendar.ui.components.RepeatPopup
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
@@ -23,7 +23,7 @@ fun TaskAltSheetContent(
     var repeatState by remember { mutableStateOf(0) }
     var functionRepeatDialogPopup by remember { mutableStateOf(false) }
     if (functionRepeatDialogPopup) {
-        RepeatDialogPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
+        RepeatPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
     Column(modifier = Modifier.fillMaxWidth()) {

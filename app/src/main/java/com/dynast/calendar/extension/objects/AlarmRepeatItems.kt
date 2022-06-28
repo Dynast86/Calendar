@@ -11,5 +11,5 @@ sealed class AlarmRepeatItems(
     object Week : AlarmRepeatItems(title = R.string.alarm_repeat_every_week)
     object Month : AlarmRepeatItems(title = R.string.alarm_repeat_every_month)
     object Year : AlarmRepeatItems(title = R.string.alarm_repeat_every_year)
-    object Config : AlarmRepeatItems(title = R.string.alarm_repeat_config)
+    object Config : AlarmRepeatItems(title = R.string.alarm_config)
 }
