@@ -30,22 +30,22 @@ class AlarmActivity : FragmentActivity() {
 
     private val clickListener = object : (ButtonType) -> Unit {
         val datePicker = MaterialDatePicker.Builder.datePicker()
-            .setTitleText("")
             .setSelection(MaterialDatePicker.todayInUtcMilliseconds()).build()
 
         val timePicker = MaterialTimePicker.Builder().setTimeFormat(TimeFormat.CLOCK_12H)
             .setHour(1)
             .setMinute(0)
-            .setTitleText("")
             .build()
 
         override fun invoke(item: ButtonType) {
             when (item) {
                 ButtonType.Date -> {
-                    datePicker.show(supportFragmentManager, item.toString())
+                    if (!datePicker.isVisible)
+                        datePicker.show(supportFragmentManager, item.toString())
                 }
                 ButtonType.Time -> {
-                    timePicker.show(supportFragmentManager, item.toString())
+                    if (!timePicker.isVisible)
+                        timePicker.show(supportFragmentManager, item.toString())
                 }
                 ButtonType.Close -> finish()
                 else -> Unit
