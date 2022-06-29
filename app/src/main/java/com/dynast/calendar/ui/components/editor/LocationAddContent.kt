@@ -15,7 +15,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 
 
 @Composable
-fun EditorLocationContent(
+fun LocationAddContent(
     modifier: Modifier = Modifier,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -32,6 +32,6 @@ fun EditorLocationContent(
 @Composable
 fun EditorLocationContentPreview() {
     CalendarTheme {
-        EditorLocationContent(onClicked = {})
+        LocationAddContent(onClicked = {})
     }
 }

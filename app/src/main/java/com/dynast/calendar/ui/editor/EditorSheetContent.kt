@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
+import com.dynast.calendar.presentation.main.state.EditUiState
 import com.dynast.calendar.ui.components.RepeatPopup
 import com.dynast.calendar.ui.components.editor.*
 import com.dynast.calendar.ui.theme.CalendarTheme
@@ -16,6 +17,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun EditorSheetContent(
     clear: Boolean,
+    editUiState: EditUiState,
     onClicked: ButtonType.() -> Unit
 ) {
     var repeatState by remember { mutableStateOf(0) }
@@ -32,12 +34,17 @@ fun EditorSheetContent(
                 clear = clear
             )
         }
-        item { EditorDateContent(modifier = Styled.defaultPadding) { onClicked(this) } }
-        item { EditorUserContent(modifier = Styled.defaultPadding) { onClicked(this) } }
-        item { EditorMeetContent(modifier = Styled.defaultPadding) }
-        item { EditorLocationContent(modifier = Styled.defaultPadding) { onClicked(this) } }
-        item { EditorAlarmContent(modifier = Styled.defaultPadding) { } }
-        item { EditorColorContent(modifier = Styled.defaultPadding) }
+
+        item { DateAddContent(modifier = Styled.defaultPadding, date = editUiState.date) { onClicked(this) } }
+        item { UserAddContent(modifier = Styled.defaultPadding) { onClicked(this) } }
+        item { MeetAddContent(modifier = Styled.defaultPadding, meet = editUiState.meet) }
+        item { LocationAddContent(modifier = Styled.defaultPadding) { onClicked(this) } }
+        item { AlarmAddContent(modifier = Styled.defaultPadding) { } }
+        item { ColorAddContent(modifier = Styled.defaultPadding, defaultValue = editUiState.color) }
+        item {
+            ExplanationContent(modifier = Styled.defaultPadding, hint = stringResource(id = R.string.editor_explanation_add))
+        }
+        item { AttachFileContent(modifier = Styled.defaultPadding) { onClicked(this) } }
     }
 }
 
@@ -45,6 +52,6 @@ fun EditorSheetContent(
 @Composable
 fun EditorSheetContentPreview() {
     CalendarTheme {
-        EditorSheetContent(clear = false) { }
+        EditorSheetContent(editUiState = EditUiState(), clear = false) { }
     }
 }

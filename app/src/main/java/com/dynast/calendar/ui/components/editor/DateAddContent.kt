@@ -19,18 +19,20 @@ import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.alarm.repeatItems
+import com.dynast.calendar.presentation.main.state.DateAndTimeZone
 import com.dynast.calendar.ui.components.ContentItem
 import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun EditorDateContent(
+fun DateAddContent(
     modifier: Modifier = Modifier,
+    date: DateAndTimeZone,
     repeatValue: Int = 0,
     onClicked: ButtonType.() -> Unit
 ) {
-    var checked by remember { mutableStateOf(true) }
-    var timeState by remember { mutableStateOf(false) }
+    var checked by remember { mutableStateOf(date.allDay) }
+    var timeState by remember { mutableStateOf(!date.allDay) }
     val expand = remember { MutableTransitionState(initialState = timeState) }
 
     Column {
@@ -87,6 +89,6 @@ fun EditorDateContent(
 @Composable
 fun EditorDateContentPreview() {
     CalendarTheme {
-        EditorDateContent(onClicked = {})
+        DateAddContent(onClicked = {}, date = DateAndTimeZone())
     }
 }

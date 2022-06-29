@@ -20,7 +20,7 @@ import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun EditorAlarmContent(
+fun AlarmAddContent(
     modifier: Modifier = Modifier,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -80,6 +80,6 @@ fun EditorAlarmContent(
 @Composable
 fun EditorAlarmContentPreview() {
     CalendarTheme {
-        EditorAlarmContent(onClicked = {})
+        AlarmAddContent(onClicked = {})
     }
 }

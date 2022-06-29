@@ -1,10 +1,14 @@
 package com.dynast.calendar.presentation.main
 
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import com.dynast.calendar.domain.model.card.AgendaCardData
 import com.dynast.calendar.domain.useCase.GetCardsFlowUseCase
+import com.dynast.calendar.presentation.main.state.EditUiState
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
@@ -24,6 +28,9 @@ class MainViewModel @Inject constructor(
 
     private var _processState = MutableStateFlow(false)
     val processState get() = _processState
+
+    var editState by mutableStateOf(EditUiState())
+        private set
 
     init {
         viewModelScope.launch {

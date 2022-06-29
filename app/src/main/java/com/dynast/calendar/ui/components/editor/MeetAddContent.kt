@@ -20,10 +20,11 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 
 
 @Composable
-fun EditorMeetContent(
-    modifier: Modifier = Modifier
+fun MeetAddContent(
+    modifier: Modifier = Modifier,
+    meet : Boolean = false
 ) {
-    var state by remember { mutableStateOf(false) }
+    var state by remember { mutableStateOf(meet) }
 
     Column {
         Row(
@@ -69,6 +70,6 @@ fun EditorMeetContent(
 @Composable
 fun EditorMeetContentPreview() {
     CalendarTheme {
-        EditorMeetContent()
+        MeetAddContent()
     }
 }

@@ -130,9 +130,7 @@ fun MainScreen(
 
     BottomSheetContent(
         state = mainState.bottomSheetState,
-        onClicked = { item ->
-            setBottomState(item, scope, context)
-        }) { clear ->
+        onClicked = { item -> setBottomState(item, scope, context) }) { clear ->
         with(mainState) {
             when (bottomType.value) {
                 BottomType.TaskAlt -> TaskAltSheetContent(clear = clear) {
@@ -140,7 +138,10 @@ fun MainScreen(
                     bottomSheetState.setBottomState(item = this, scope = scope, context = context, launcher)
 //                    if (this == ButtonType.Close) clear = true
                 }
-                BottomType.Editor -> EditorSheetContent(clear = clear) {
+                BottomType.Editor -> EditorSheetContent(
+                    clear = clear,
+                    editUiState = viewModel.editState
+                ) {
                     bottomSheetState.setBottomState(item = this, scope = scope, context = context, launcher)
 //                    if (this == ButtonType.Close) clear = true
                 }
@@ -163,6 +164,9 @@ private fun ModalBottomSheetState.setBottomState(
         ButtonType.UserAdd -> launcher?.launch(Intent(context, UserAddActivity::class.java))
         ButtonType.Location -> context?.startActivity(Intent(context, LocationActivity::class.java))
         ButtonType.Color -> {
+
+        }
+        ButtonType.AttachFile -> {
 
         }
         else -> Unit

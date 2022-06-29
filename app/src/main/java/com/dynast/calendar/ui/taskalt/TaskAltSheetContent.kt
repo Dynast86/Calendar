@@ -12,6 +12,7 @@ import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.alarm.AlarmDateContent
 import com.dynast.calendar.presentation.alarm.AlarmRepeatContent
 import com.dynast.calendar.ui.components.RepeatPopup
+import com.dynast.calendar.ui.components.editor.ExplanationContent
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 
@@ -32,7 +33,10 @@ fun TaskAltSheetContent(
             hint = stringResource(id = R.string.task_alt_hilt),
             clear = clear
         )
-        TaskAltDetailContent(modifier = Styled.defaultPadding)
+        ExplanationContent(
+            modifier = Styled.defaultPadding,
+            hint = stringResource(id = R.string.task_alt_add_data)
+        )
         AlarmDateContent { onClicked(this) }
         AlarmRepeatContent(
             modifier = Styled.defaultPadding,

@@ -20,7 +20,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun EditorUserContent(
+fun UserAddContent(
     modifier: Modifier = Modifier,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -48,6 +48,6 @@ fun EditorUserContent(
 @Composable
 fun EditorUserContentPreview() {
     CalendarTheme {
-        EditorUserContent(onClicked = {})
+        UserAddContent(onClicked = {})
     }
 }

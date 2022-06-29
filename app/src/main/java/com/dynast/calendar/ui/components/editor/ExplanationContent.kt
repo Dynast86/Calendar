@@ -1,11 +1,10 @@
-package com.dynast.calendar.ui.taskalt
+package com.dynast.calendar.ui.components.editor
 
 import androidx.compose.foundation.layout.*
 import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Notes
 import androidx.compose.material3.Icon
-import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.*
 import androidx.compose.ui.Alignment
@@ -19,11 +18,11 @@ import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
-fun TaskAltDetailContent(
-    modifier: Modifier = Modifier
+fun ExplanationContent(
+    modifier: Modifier = Modifier,
+    hint: String
 ) {
     var textState by remember { mutableStateOf(TextFieldValue()) }
-    val hint = stringResource(id = R.string.task_alt_add_data)
 
     Column {
         Row(
@@ -41,10 +40,7 @@ fun TaskAltDetailContent(
                 value = textState, onValueChange = { textState = it },
                 decorationBox = { innerTextField ->
                     if (textState.text.isEmpty()) {
-                        Text(
-                            text = hint,
-                            style = MaterialTheme.typography.bodyMedium
-                        )
+                        Text(text = hint)
                     }
                     innerTextField()
                 },
@@ -58,6 +54,6 @@ fun TaskAltDetailContent(
 @Composable
 fun TaskAltDetailContentPreview() {
     CalendarTheme {
-        TaskAltDetailContent()
+        ExplanationContent(hint = stringResource(id = R.string.task_alt_add_data))
     }
 }
