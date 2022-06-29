@@ -24,6 +24,7 @@ import kotlinx.coroutines.launch
 fun ModalBottomTopBar(
     modifier: Modifier = Modifier,
     title: String? = null,
+    titleState: Boolean = false,
     toast: String? = null,
     onClicked: ButtonType.() -> Unit,
     content: @Composable BoxScope.() -> Unit

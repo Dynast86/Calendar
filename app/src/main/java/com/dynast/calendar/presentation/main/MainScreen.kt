@@ -10,6 +10,7 @@ import androidx.activity.compose.rememberLauncherForActivityResult
 import androidx.activity.result.ActivityResult
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.material.ModalBottomSheetState
 import androidx.compose.material.ModalBottomSheetValue
@@ -54,6 +55,8 @@ fun MainScreen(
     val scope = rememberCoroutineScope()
     var selected by remember { mutableStateOf(items[state]) }
     val mainState = rememberMainState()
+    val listState = rememberLazyListState()
+    val titleState by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
 
     val backState by remember { mutableStateOf(true) }
     BackHandler(enabled = backState) {
@@ -130,6 +133,7 @@ fun MainScreen(
 
     BottomSheetContent(
         state = mainState.bottomSheetState,
+        titleState = titleState,
         onClicked = { item -> setBottomState(item, scope, context) }) { clear ->
         with(mainState) {
             when (bottomType.value) {
@@ -140,6 +144,7 @@ fun MainScreen(
                 }
                 BottomType.Editor -> EditorSheetContent(
                     clear = clear,
+                    listState = listState,
                     editUiState = viewModel.editState
                 ) {
                     bottomSheetState.setBottomState(item = this, scope = scope, context = context, launcher)

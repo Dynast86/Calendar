@@ -16,6 +16,7 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun BottomSheetContent(
     state: ModalBottomSheetState,
+    titleState: Boolean = false,
     onClicked: ModalBottomSheetState.(ButtonType) -> Unit,
     content: @Composable (Boolean) -> Unit
 ) {
@@ -30,10 +31,11 @@ fun BottomSheetContent(
         sheetState = state,
         sheetShape = shape,
         sheetContent = {
-            ModalBottomTopBar(onClicked = {
-                state.onClicked(this)
-                if (this == ButtonType.Close) clear = true
-            }) { content(clear) }
+            ModalBottomTopBar(
+                onClicked = {
+                    state.onClicked(this)
+                    if (this == ButtonType.Close) clear = true
+                }) { content(clear) }
         }
     ) { }
 }

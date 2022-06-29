@@ -2,21 +2,22 @@ package com.dynast.calendar.ui.editor
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.foundation.lazy.LazyListState
+import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
-import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.main.state.EditUiState
 import com.dynast.calendar.ui.components.RepeatPopup
 import com.dynast.calendar.ui.components.editor.*
-import com.dynast.calendar.ui.theme.CalendarTheme
 
 @Composable
 fun EditorSheetContent(
     clear: Boolean,
+    listState : LazyListState,
     editUiState: EditUiState,
     onClicked: ButtonType.() -> Unit
 ) {
@@ -26,7 +27,10 @@ fun EditorSheetContent(
         RepeatPopup(defaultValue = repeatState, onChecked = { repeatState = this }) { functionRepeatDialogPopup = false }
     }
 
-    LazyColumn(modifier = Modifier.fillMaxWidth()) {
+    LazyColumn(
+        modifier = Modifier.fillMaxWidth(),
+        state = listState
+    ) {
         item {
             HeaderTextField(
                 modifier = Styled.defaultPadding,
@@ -45,13 +49,5 @@ fun EditorSheetContent(
             ExplanationContent(modifier = Styled.defaultPadding, hint = stringResource(id = R.string.editor_explanation_add))
         }
         item { AttachFileContent(modifier = Styled.defaultPadding) { onClicked(this) } }
-    }
-}
-
-@Preview(showBackground = true)
-@Composable
-fun EditorSheetContentPreview() {
-    CalendarTheme {
-        EditorSheetContent(editUiState = EditUiState(), clear = false) { }
     }
 }
