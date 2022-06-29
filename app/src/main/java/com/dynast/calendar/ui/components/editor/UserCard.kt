@@ -46,7 +46,7 @@ fun UserCard(
                 .background(userData.circleColor),
             contentAlignment = Alignment.Center
         ) {
-            Icon(imageVector = Icons.Filled.Person, contentDescription = "User", tint = Color.White)
+            Icon(imageVector = Icons.Default.Person, contentDescription = "User", tint = Color.White)
         }
         Column(
             modifier = Modifier
@@ -65,14 +65,14 @@ fun UserCard(
                 Spacer(modifier = defaultSize)
             } else {
                 IconButton(onClick = { options = !options }) {
-                    Icon(imageVector = if (options) Icons.Outlined.Person else Icons.Filled.Person, contentDescription = "User")
+                    Icon(imageVector = if (options) Icons.Outlined.Person else Icons.Default.Person, contentDescription = "User")
                 }
             }
             if (!delete) {
                 Spacer(modifier = defaultSize)
             } else {
                 IconButton(onClick = { onClicked(UserAddType.DELETE) }) {
-                    Icon(imageVector = Icons.Filled.Close, contentDescription = "User")
+                    Icon(imageVector = Icons.Default.Close, contentDescription = "User")
                 }
             }
         }

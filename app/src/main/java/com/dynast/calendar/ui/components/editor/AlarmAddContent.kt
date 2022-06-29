@@ -41,7 +41,7 @@ fun AlarmAddContent(
                     .weight(1f), text = "30분 전"
             )
             IconButton(onClick = { }) {
-                Icon(imageVector = Icons.Filled.Close, contentDescription = stringResource(id = R.string.delete))
+                Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(id = R.string.delete))
             }
         }
         Row(
@@ -56,7 +56,7 @@ fun AlarmAddContent(
                     .weight(1f), text = "30분 전에 이메일(으)로"
             )
             IconButton(onClick = { onClicked(ButtonType.Close) }) {
-                Icon(imageVector = Icons.Filled.Close, contentDescription = stringResource(id = R.string.delete))
+                Icon(imageVector = Icons.Default.Close, contentDescription = stringResource(id = R.string.delete))
             }
         }
         Row(
