@@ -7,5 +7,4 @@ import javax.inject.Inject
 @HiltViewModel
 class FlagViewModel @Inject constructor(
 
-) : ViewModel() {
-}
+) : ViewModel()

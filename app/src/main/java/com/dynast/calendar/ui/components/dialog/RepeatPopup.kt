@@ -1,4 +1,4 @@
-package com.dynast.calendar.ui.components
+package com.dynast.calendar.ui.components.dialog
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.clickable
@@ -22,6 +22,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.objects.AlarmRepeatItems
 import com.dynast.calendar.presentation.alarm.repeatItems
+import com.dynast.calendar.ui.components.DialogPopup
 import com.dynast.calendar.ui.theme.CalendarTheme
 
 @OptIn(ExperimentalMaterialApi::class)

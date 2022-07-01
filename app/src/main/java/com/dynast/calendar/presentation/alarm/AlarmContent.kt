@@ -9,7 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.ui.components.RepeatPopup
+import com.dynast.calendar.ui.components.dialog.RepeatPopup
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
 

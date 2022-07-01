@@ -3,7 +3,6 @@ package com.dynast.calendar.ui.editor
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.LazyListState
-import androidx.compose.foundation.lazy.rememberLazyListState
 import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.stringResource
@@ -11,13 +10,13 @@ import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.main.state.EditUiState
-import com.dynast.calendar.ui.components.RepeatPopup
+import com.dynast.calendar.ui.components.dialog.RepeatPopup
 import com.dynast.calendar.ui.components.editor.*
 
 @Composable
 fun EditorSheetContent(
     clear: Boolean,
-    listState : LazyListState,
+    listState: LazyListState,
     editUiState: EditUiState,
     onClicked: ButtonType.() -> Unit
 ) {

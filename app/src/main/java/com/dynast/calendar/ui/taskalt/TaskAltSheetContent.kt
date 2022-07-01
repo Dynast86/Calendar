@@ -11,7 +11,7 @@ import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
 import com.dynast.calendar.presentation.alarm.AlarmDateContent
 import com.dynast.calendar.presentation.alarm.AlarmRepeatContent
-import com.dynast.calendar.ui.components.RepeatPopup
+import com.dynast.calendar.ui.components.dialog.RepeatPopup
 import com.dynast.calendar.ui.components.editor.ExplanationContent
 import com.dynast.calendar.ui.components.editor.HeaderTextField
 import com.dynast.calendar.ui.theme.CalendarTheme
