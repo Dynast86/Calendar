@@ -138,7 +138,6 @@ fun MainScreen(
         with(mainState) {
             when (bottomType.value) {
                 BottomType.TaskAlt -> TaskAltSheetContent(clear = clear) {
-                    launcher.launch(Intent())
                     bottomSheetState.setBottomState(item = this, scope = scope, context = context, launcher)
 //                    if (this == ButtonType.Close) clear = true
                 }
@@ -163,7 +162,6 @@ private fun ModalBottomSheetState.setBottomState(
     launcher: ManagedActivityResultLauncher<Intent, ActivityResult>? = null
 ) {
     when (item) {
-
         ButtonType.Close -> scope.launch { hide() }
         ButtonType.ViewAgenda -> scope.launch { animateTo(ModalBottomSheetValue.HalfExpanded) }
         ButtonType.UserAdd -> launcher?.launch(Intent(context, UserAddActivity::class.java))

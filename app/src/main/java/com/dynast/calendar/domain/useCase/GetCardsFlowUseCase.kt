@@ -15,12 +15,10 @@ class GetCardsFlowUseCase @Inject constructor(
     private val repository: MockupRepository,
     @IoDispatcher val coroutineDispatcher: CoroutineDispatcher
 ) {
-    suspend operator fun invoke(): Flow<PagingData<AgendaCardData>> {
-        return callbackFlow {
-            withContext(coroutineDispatcher) {
-                repository.getCards(20).collectLatest {
-                    trySend(it)
-                }
+    operator fun invoke(): Flow<PagingData<AgendaCardData>> = callbackFlow {
+        withContext(coroutineDispatcher) {
+            repository.getCards(20).collectLatest {
+                trySend(it)
             }
         }
     }

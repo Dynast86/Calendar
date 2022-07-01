@@ -6,6 +6,7 @@ import androidx.compose.runtime.setValue
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
+import androidx.paging.filter
 import com.dynast.calendar.domain.model.card.AgendaCardData
 import com.dynast.calendar.domain.useCase.GetCardsFlowUseCase
 import com.dynast.calendar.presentation.main.state.EditUiState
@@ -13,6 +14,7 @@ import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -43,5 +45,9 @@ class MainViewModel @Inject constructor(
         _processState.emit(value)
         delay(2000L)
         _processState.emit(false)
+    }
+
+    fun removeItem(item: AgendaCardData?) {
+        println("removeItem : $item")
     }
 }
