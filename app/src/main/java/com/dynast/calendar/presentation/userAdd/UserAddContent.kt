@@ -64,11 +64,11 @@ fun UserAddContent(
         Box(modifier = Modifier.padding(contentPadding)) {
             UserAddItems(textState = textState, uiState = uiState) { item ->
                 when (this) {
-                    UserAddType.SELECT -> {
+                    UserAddType.Select -> {
                         uiState.addUsers(item)
                         textState = TextFieldValue()
                     }
-                    UserAddType.DELETE -> uiState.deleteUsers(item)
+                    UserAddType.Delete -> uiState.deleteUsers(item)
                 }
 
             }

@@ -21,7 +21,7 @@ data class EditUiState(
     // 알림
     val alarms: MutableList<Any>? = null,
     // 색상
-    val color: Int = 11,
+    var color: Int = 11,
     // 설명
     val explanation: String? = null,
     // 첨부파일

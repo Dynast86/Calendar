@@ -37,7 +37,7 @@ fun UserCard(
     Row(
         modifier = Modifier
             .fillMaxWidth()
-            .clickable { onClicked(UserAddType.SELECT) }
+            .clickable { onClicked(UserAddType.Select) }
             .padding(16.dp)
     ) {
         Box(
@@ -71,7 +71,7 @@ fun UserCard(
             if (!delete) {
                 Spacer(modifier = defaultSize)
             } else {
-                IconButton(onClick = { onClicked(UserAddType.DELETE) }) {
+                IconButton(onClick = { onClicked(UserAddType.Delete) }) {
                     Icon(imageVector = Icons.Default.Close, contentDescription = "User")
                 }
             }

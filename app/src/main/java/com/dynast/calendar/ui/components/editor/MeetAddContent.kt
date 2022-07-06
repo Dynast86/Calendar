@@ -15,23 +15,23 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.presentation.main.state.EditUiState
 import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
-
 
 @Composable
 fun MeetAddContent(
     modifier: Modifier = Modifier,
-    meet : Boolean = false
+    uiState: EditUiState
 ) {
-    var state by remember { mutableStateOf(meet) }
+    var state by remember { mutableStateOf(uiState.meet) }
 
     Column {
         Row(
             modifier = Modifier
                 .wrapContentHeight()
                 .fillMaxWidth()
-                .clickable(enabled = !state, onClick = { state = true }),
+                .clickable(onClick = { state = true }),
             verticalAlignment = Alignment.CenterVertically
         ) {
             Icon(
@@ -70,6 +70,6 @@ fun MeetAddContent(
 @Composable
 fun EditorMeetContentPreview() {
     CalendarTheme {
-        MeetAddContent()
+        MeetAddContent(uiState = EditUiState())
     }
 }

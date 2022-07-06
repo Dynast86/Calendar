@@ -17,9 +17,10 @@ import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dynast.calendar.R
+import com.dynast.calendar.extension.objects.AlarmRepeatItems
 import com.dynast.calendar.extension.type.ButtonType
-import com.dynast.calendar.presentation.alarm.repeatItems
 import com.dynast.calendar.presentation.main.state.DateAndTimeZone
+import com.dynast.calendar.presentation.main.state.EditUiState
 import com.dynast.calendar.ui.components.ContentItem
 import com.dynast.calendar.ui.components.DividerContent
 import com.dynast.calendar.ui.theme.CalendarTheme
@@ -27,34 +28,31 @@ import com.dynast.calendar.ui.theme.CalendarTheme
 @Composable
 fun DateAddContent(
     modifier: Modifier = Modifier,
-    date: DateAndTimeZone,
-    repeatValue: Int = 0,
+    uiState: EditUiState,
+    repeatTitle: String,
     onClicked: ButtonType.() -> Unit
 ) {
-    var checked by remember { mutableStateOf(date.allDay) }
-    var timeState by remember { mutableStateOf(!date.allDay) }
-    val expand = remember { MutableTransitionState(initialState = timeState) }
+    var state by remember { mutableStateOf(uiState.date.allDay) }
+    val expand = remember { MutableTransitionState(initialState = !uiState.date.allDay) }
 
     Column {
         ContentItem(
             icon = Icons.Default.Schedule,
             title = stringResource(id = R.string.alarm_every_day),
             options = {
-                Switch(modifier = Modifier.padding(end = 16.dp), checked = checked,
+                Switch(modifier = Modifier.padding(end = 16.dp), checked = state,
                     onCheckedChange = {
-                        checked = it
-                        timeState = !checked
+                        state = it
                         expand.targetState = !it
                     })
             }) {
-            checked = !checked
-            timeState = !checked
-            expand.targetState = !checked
+            state = !state
+            expand.targetState = !state
         }
         ContentItem(
             title = "2022년 6월 22일 (수)",
             options = {
-                if (timeState) {
+                if (!state) {
                     TextButton(onClick = { onClicked(ButtonType.Time) }) {
                         Text(text = "오후 4:00")
                     }
@@ -63,7 +61,7 @@ fun DateAddContent(
         ContentItem(
             title = "2022년 6월 22일 (수)",
             options = {
-                if (timeState) {
+                if (!state) {
                     TextButton(onClick = { onClicked(ButtonType.Time) }) {
                         Text(text = "오후 5:00")
                     }
@@ -79,7 +77,9 @@ fun DateAddContent(
         // 반복
         ContentItem(
             icon = Icons.Default.Replay,
-            title = stringResource(id = repeatItems[repeatValue].title),
+            title = repeatTitle
+//            stringResource(id = repeatItems[repeatValue].title)
+            ,
             options = { }) { onClicked(ButtonType.RepeatDialog) }
         DividerContent(modifier = modifier)
     }
@@ -89,6 +89,6 @@ fun DateAddContent(
 @Composable
 fun EditorDateContentPreview() {
     CalendarTheme {
-        DateAddContent(onClicked = {}, date = DateAndTimeZone())
+        DateAddContent(onClicked = {}, uiState = EditUiState(date = DateAndTimeZone()), repeatTitle = stringResource(id = AlarmRepeatItems.None.title))
     }
 }

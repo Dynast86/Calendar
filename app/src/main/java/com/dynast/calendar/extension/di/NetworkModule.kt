@@ -17,9 +17,9 @@ import javax.inject.Singleton
 @InstallIn(SingletonComponent::class)
 object NetworkModule {
 
-    private const val CONNECT_TIMEOUT = 10L
-    private const val WRITE_TIMEOUT = 1L
-    private const val READ_TIMEOUT = 20L
+    private const val ConnectTimeOut = 10L
+    private const val WriteTimeOut = 1L
+    private const val ReadTimeOut = 20L
 
     private const val url = "https://www.google.com"
 
@@ -27,9 +27,9 @@ object NetworkModule {
     @Singleton
     fun provideOkHttpClient(): OkHttpClient {
         return OkHttpClient.Builder().apply {
-            connectTimeout(CONNECT_TIMEOUT, TimeUnit.SECONDS)
-            writeTimeout(WRITE_TIMEOUT, TimeUnit.SECONDS)
-            readTimeout(READ_TIMEOUT, TimeUnit.SECONDS)
+            connectTimeout(ConnectTimeOut, TimeUnit.SECONDS)
+            writeTimeout(WriteTimeOut, TimeUnit.SECONDS)
+            readTimeout(ReadTimeOut, TimeUnit.SECONDS)
             retryOnConnectionFailure(true)
             addInterceptor(HttpLoggingInterceptor().apply {
                 level = HttpLoggingInterceptor.Level.BODY

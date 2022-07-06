@@ -9,6 +9,7 @@ import androidx.compose.ui.res.stringResource
 import com.dynast.calendar.R
 import com.dynast.calendar.extension.Styled
 import com.dynast.calendar.extension.type.ButtonType
+import com.dynast.calendar.presentation.alarm.repeatItems
 import com.dynast.calendar.presentation.main.state.EditUiState
 import com.dynast.calendar.ui.components.dialog.RepeatPopup
 import com.dynast.calendar.ui.components.editor.*
@@ -38,12 +39,23 @@ fun EditorSheetContent(
             )
         }
 
-        item { DateAddContent(modifier = Styled.defaultPadding, date = editUiState.date) { onClicked(this) } }
+        item {
+            DateAddContent(
+                modifier = Styled.defaultPadding, uiState = editUiState,
+                repeatTitle = stringResource(id = repeatItems[repeatState].title)
+            ) {
+                if (this == ButtonType.RepeatDialog) {
+                    functionRepeatDialogPopup = true
+                } else {
+                    onClicked(this)
+                }
+            }
+        }
         item { UserAddContent(modifier = Styled.defaultPadding) { onClicked(this) } }
-        item { MeetAddContent(modifier = Styled.defaultPadding, meet = editUiState.meet) }
+        item { MeetAddContent(modifier = Styled.defaultPadding, uiState = editUiState) }
         item { LocationAddContent(modifier = Styled.defaultPadding) { onClicked(this) } }
         item { AlarmAddContent(modifier = Styled.defaultPadding) { } }
-        item { ColorAddContent(modifier = Styled.defaultPadding, defaultValue = editUiState.color) }
+        item { ColorAddContent(modifier = Styled.defaultPadding, uiState = editUiState) }
         item {
             ExplanationContent(modifier = Styled.defaultPadding, hint = stringResource(id = R.string.editor_explanation_add))
         }
