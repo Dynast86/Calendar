@@ -35,11 +35,3 @@ class MainActivity : ComponentActivity() {
         with(viewModel) { setProcessState(true) }
     }
 }
-
-@Preview(showBackground = true)
-@Composable
-fun DefaultPreview() {
-    CalendarTheme {
-        MainScreen()
-    }
-}

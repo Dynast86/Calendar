@@ -48,12 +48,12 @@ fun MainScreen(
         }
     }
 
-    val state by viewModel.state.collectAsState()
+//    val state by viewModel.state.collectAsState()
     val process by viewModel.processState.collectAsState()
 
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
-    var selected by remember { mutableStateOf(items[state]) }
+    val selected by remember { viewModel.drawerState }
     val mainState = rememberMainState()
     val listState = rememberLazyListState()
     val titleState by remember { derivedStateOf { listState.firstVisibleItemIndex > 0 } }
@@ -75,16 +75,17 @@ fun MainScreen(
         drawerContentColor = MaterialTheme.colorScheme.inverseOnSurface,
         drawerContent = {
             CalendarDrawer(
-                selectedDestination = selected,
-                onDrawerClicked = { item ->
-                    when (item) {
-                        Refresh -> launch { viewModel.setProcessState(true) }
-                        else -> selected = item
-                    }
-                    launch { mainState.drawerState.close() }
-                },
+                selectedDestination = selected.item,
                 onHeaderClicked = { launch { mainState.drawerState.close() } }
-            )
+            ) { item ->
+                launch { mainState.drawerState.close() }
+                when (item) {
+                    Refresh -> launch { viewModel.setProcessState(true) }
+                    else -> {
+                        viewModel.setDrawerItemState(item = item)
+                    }
+                }
+            }
         },
         drawerState = mainState.drawerState
     ) {
@@ -139,7 +140,7 @@ fun MainScreen(
             when (bottomType.value) {
                 BottomType.TaskAlt -> TaskAltSheetContent(clear = clear) {
                     bottomSheetState.setBottomState(item = this, scope = scope, context = context, launcher)
-//                    if (this == ButtonType.Close) clear = true
+//                    if (this == ButtonType.Close) clear = true;;;;;;;;;;;;;;;;;---
                 }
                 BottomType.Editor -> EditorSheetContent(
                     clear = clear,
