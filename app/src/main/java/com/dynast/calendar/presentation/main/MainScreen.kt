@@ -49,8 +49,6 @@ fun MainScreen(
     }
 
 //    val state by viewModel.state.collectAsState()
-    val process by viewModel.processState.collectAsState()
-
     val context = LocalContext.current
     val scope = rememberCoroutineScope()
     val selected by remember { viewModel.drawerState }
@@ -79,10 +77,12 @@ fun MainScreen(
                 onHeaderClicked = { launch { mainState.drawerState.close() } }
             ) { item ->
                 launch { mainState.drawerState.close() }
-                when (item) {
-                    Refresh -> launch { viewModel.setProcessState(true) }
-                    else -> {
-                        viewModel.setDrawerItemState(item = item)
+                launch {
+                    with(viewModel) {
+                        when (item) {
+                            Refresh -> setProcessState(true)
+                            else -> setDrawerItemState(item = item)
+                        }
                     }
                 }
             }
@@ -104,7 +104,6 @@ fun MainScreen(
         ) { paddingValues ->
             AppContent(
                 modifier = Modifier.padding(paddingValues),
-                progressState = process,
                 paging = viewModel.getPagingData
             )
         }
