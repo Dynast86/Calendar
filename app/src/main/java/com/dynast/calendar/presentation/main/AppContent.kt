@@ -57,50 +57,51 @@ fun AppContent(
                 }
             }
 
-            if (process) {
-                LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
-            }
+            Box {
+                LazyColumn(
+                    state = listState,
+                    contentPadding = PaddingValues(8.dp),
+                    modifier = Modifier.fillMaxSize(),
+                    verticalArrangement = Arrangement.spacedBy(8.dp)
+                ) {
+                    items(items = page) { value ->
+                        val dismissState = rememberDismissState()
 
-            LazyColumn(
-                state = listState,
-                contentPadding = PaddingValues(8.dp),
-                modifier = Modifier.fillMaxSize(),
-                verticalArrangement = Arrangement.spacedBy(8.dp)
-            ) {
-                items(items = page) { value ->
-                    val dismissState = rememberDismissState()
+                        if (dismissState.isDismissed(DismissDirection.EndToStart)) {
+                            viewModel.removeItem(value)
+                        }
 
-                    if (dismissState.isDismissed(DismissDirection.EndToStart)) {
-                        viewModel.removeItem(value)
-                    }
+                        SwipeToDismiss(
+                            state = dismissState,
+                            modifier = Modifier.padding(vertical = Dp(1f)),
+                            directions = setOf(DismissDirection.EndToStart),
+                            dismissThresholds = { direction -> FractionalThreshold(if (direction == DismissDirection.EndToStart) 0.1f else 0.05f) },
+                            background = {
+                                val color by animateColorAsState(
+                                    when (dismissState.targetValue) {
+                                        DismissValue.Default -> Color.White
+                                        else -> Color.Red
+                                    }
+                                )
+                                val scale by animateFloatAsState(if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f)
 
-                    SwipeToDismiss(
-                        state = dismissState,
-                        modifier = Modifier.padding(vertical = Dp(1f)),
-                        directions = setOf(DismissDirection.EndToStart),
-                        dismissThresholds = { direction -> FractionalThreshold(if (direction == DismissDirection.EndToStart) 0.1f else 0.05f) },
-                        background = {
-                            val color by animateColorAsState(
-                                when (dismissState.targetValue) {
-                                    DismissValue.Default -> Color.White
-                                    else -> Color.Red
+                                Box(
+                                    Modifier
+                                        .clip(shape = cardShape)
+                                        .fillMaxSize()
+                                        .background(color)
+                                        .padding(horizontal = Dp(20f)),
+                                    contentAlignment = Alignment.CenterEnd
+                                ) {
+                                    Icon(modifier = Modifier.scale(scale), imageVector = Icons.Default.Delete, contentDescription = "Delete Icon")
                                 }
-                            )
-                            val scale by animateFloatAsState(if (dismissState.targetValue == DismissValue.Default) 0.75f else 1f)
-
-                            Box(
-                                Modifier
-                                    .clip(shape = cardShape)
-                                    .fillMaxSize()
-                                    .background(color)
-                                    .padding(horizontal = Dp(20f)),
-                                contentAlignment = Alignment.CenterEnd
-                            ) {
-                                Icon(modifier = Modifier.scale(scale), imageVector = Icons.Default.Delete, contentDescription = "Delete Icon")
-                            }
-                        }) {
-                        ViewAgendaCard(data = value)
+                            }) {
+                            ViewAgendaCard(data = value)
+                        }
                     }
+                }
+                if (process) {
+                    LinearProgressIndicator(modifier = Modifier.fillMaxWidth())
                 }
             }
         }
